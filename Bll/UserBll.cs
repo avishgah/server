@@ -41,6 +41,7 @@ namespace Bll
 
         public List<CustomerDto> GetUserList()
         {
+            
             return mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
         }
 
