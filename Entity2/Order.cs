@@ -17,7 +17,11 @@ public partial class Order
 
     public bool? IsPay { get; set; }
 
-   public virtual Customer? IdCustNavigation { get; set; }
+    public int? IdStation { get; set; }
 
-   public virtual ICollection<OrderBike> OrderBikes { get; set; } = new List<OrderBike>();
+    public DateTime? DateOrder { get; set; }
+
+    public virtual Station? IdStationNavigation { get; set; }
+
+    public virtual ICollection<OrderBike> OrderBikes { get; set; } = new List<OrderBike>();
 }

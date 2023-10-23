@@ -18,7 +18,7 @@ namespace Dal
 
         public void AddOrder(Order b)
         {
-
+           
             context.Orders.Add(b);
             context.SaveChanges();
         }

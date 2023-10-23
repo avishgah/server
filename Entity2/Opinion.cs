@@ -15,7 +15,7 @@ public partial class Opinion
 
     public int? SatisfactionLeve { get; set; }
 
-    public virtual Customer IdNavigation { get; set; } = null!;
+    public DateTime? Date { get; set; }
 
     public virtual Station? IdStationNavigation { get; set; }
 }

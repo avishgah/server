@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Dto;
 
+
 public partial class OrderDto
 {
     public int Id { get; set; }
@@ -17,7 +18,7 @@ public partial class OrderDto
 
     public bool? IsPay { get; set; }
 
-    public virtual CustomerDto? IdCustNavigation { get; set; }
+    public string? custName { get; set; } = "";
 
-    public virtual ICollection<OrderBikeDto> OrderBikes { get; set; } = new List<OrderBikeDto>();
+
 }

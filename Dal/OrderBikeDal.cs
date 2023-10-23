@@ -43,10 +43,8 @@ namespace Dal
             OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
             OrderBike.IdBike=b.IdBike;
             OrderBike.IdPay=b.IdPay;
-            OrderBike.IdStation=b.IdStation;
             OrderBike.Status = b.Status;
             OrderBike.Sum=b.Sum;
-            OrderBike.DateOrder=b.DateOrder;
             OrderBike.DateStart=b.DateStart;
             OrderBike.DateEnd=b.DateEnd;
             context.SaveChanges();

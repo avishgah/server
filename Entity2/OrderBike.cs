@@ -17,15 +17,9 @@ public partial class OrderBike
 
     public bool? Status { get; set; }
 
-    public int? IdStation { get; set; }
-
     public int? Sum { get; set; }
 
-    public DateTime? DateOrder { get; set; }
-
-    public virtual Bike IdNavigation { get; set; } = null!;
+    public virtual Bike? IdBikeNavigation { get; set; }
 
     public virtual Order? IdPayNavigation { get; set; }
-
-    public virtual Station? IdStationNavigation { get; set; }
 }

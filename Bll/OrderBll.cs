@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dal;
-using Entity2; 
+using Entity2;
 
 namespace Bll
 {
@@ -25,7 +25,15 @@ namespace Bll
 
         public void AddOrder(OrderDto b)
         {
-            this.OrderDal.AddOrder(mapper.Map<Order>(b));
+            Order order = mapper.Map<Order>(b);
+            //func hoh many can take
+            for (int i = 0; i < 4; i++)
+            {
+                order.OrderBikes.Add(new OrderBike() { Status = false
+               //,DateOrder=DateTime.Now,IdStation=1
+                });
+            }
+            this.OrderDal.AddOrder(order);
         }
 
         public void DeleteOrder(int id)

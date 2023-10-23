@@ -47,7 +47,7 @@ namespace Dal
             opinion.Id = id;
             opinion.Caption = b.Caption;
             opinion.IdStationNavigation = b.IdStationNavigation;
-            opinion.IdNavigation= b.IdNavigation;
+            //opinion.na= b.IdNavigation;
             opinion.IdCust = b.IdCust;
             opinion.IdStation= b.IdStation;
             opinion.SatisfactionLeve = b.SatisfactionLeve;

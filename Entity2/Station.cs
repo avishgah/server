@@ -17,5 +17,5 @@ public partial class Station
 
     public virtual ICollection<Opinion> Opinions { get; set; } = new List<Opinion>();
 
-    public virtual ICollection<OrderBike> OrderBikes { get; set; } = new List<OrderBike>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

@@ -23,9 +23,5 @@ public partial class OrderBikeDto
 
     public DateTime? DateOrder { get; set; }
 
-    public virtual BikeDto IdNavigation { get; set; } = null!;
-
-    public virtual OrderDto? IdPayNavigation { get; set; }
-
-    public virtual StationDto? IdStationNavigation { get; set; }
+   
 }

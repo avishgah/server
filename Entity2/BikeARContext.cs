@@ -29,13 +29,15 @@ public partial class BikeARContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=PF2SAW12\\SQLEXPRESS;Initial Catalog=bike_a&r1;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=PF2SAW12\\SQLEXPRESS;Initial Catalog=bike_a&r1;Integrated Security=True; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Bike>(entity =>
         {
             entity.ToTable("bike");
+
+            entity.HasIndex(e => e.IdStation, "IX_bike_idStation");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Battery).HasColumnName("battery");
@@ -93,21 +95,19 @@ public partial class BikeARContext : DbContext
         {
             entity.ToTable("opinion");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id");
+            entity.HasIndex(e => e.IdStation, "IX_opinion_idStation");
+
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Caption)
                 .HasMaxLength(100)
                 .IsFixedLength()
                 .HasColumnName("caption");
+            entity.Property(e => e.Date)
+                .HasColumnType("date")
+                .HasColumnName("date");
             entity.Property(e => e.IdCust).HasColumnName("idCust");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.SatisfactionLeve).HasColumnName("satisfactionLeve");
-
-            entity.HasOne(d => d.IdNavigation).WithOne(p => p.Opinion)
-                .HasForeignKey<Opinion>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_opinion_customers");
 
             entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
                 .HasForeignKey(d => d.IdStation)
@@ -118,57 +118,54 @@ public partial class BikeARContext : DbContext
         {
             entity.ToTable("orders");
 
+            entity.HasIndex(e => e.IdCust, "IX_orders_idCust");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Code)
                 .HasMaxLength(10)
                 .IsFixedLength()
                 .HasColumnName("code");
+            entity.Property(e => e.DateOrder)
+                .HasColumnType("date")
+                .HasColumnName("dateOrder");
             entity.Property(e => e.DatePay)
                 .HasColumnType("date")
                 .HasColumnName("datePay");
             entity.Property(e => e.EndSum).HasColumnName("endSum");
             entity.Property(e => e.IdCust).HasColumnName("idCust");
+            entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.IsPay).HasColumnName("isPay");
 
-            entity.HasOne(d => d.IdCustNavigation).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.IdCust)
-                .HasConstraintName("FK_orders_orders");
+            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.IdStation)
+                .HasConstraintName("FK_orders_stations");
         });
 
         modelBuilder.Entity<OrderBike>(entity =>
         {
             entity.ToTable("order_bike");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id");
+            entity.HasIndex(e => e.IdPay, "IX_order_bike_idPay");
+
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DateEnd)
                 .HasColumnType("date")
                 .HasColumnName("dateEnd");
-            entity.Property(e => e.DateOrder)
-                .HasColumnType("date")
-                .HasColumnName("dateOrder");
             entity.Property(e => e.DateStart)
                 .HasColumnType("date")
                 .HasColumnName("dateStart");
             entity.Property(e => e.IdBike).HasColumnName("idBike");
             entity.Property(e => e.IdPay).HasColumnName("idPay");
-            entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Sum).HasColumnName("sum");
 
-            entity.HasOne(d => d.IdNavigation).WithOne(p => p.OrderBike)
-                .HasForeignKey<OrderBike>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+            entity.HasOne(d => d.IdBikeNavigation).WithMany(p => p.OrderBikes)
+                .HasForeignKey(d => d.IdBike)
                 .HasConstraintName("FK_order_bike_bike");
 
             entity.HasOne(d => d.IdPayNavigation).WithMany(p => p.OrderBikes)
                 .HasForeignKey(d => d.IdPay)
                 .HasConstraintName("FK_order_bike_orders");
-
-            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.OrderBikes)
-                .HasForeignKey(d => d.IdStation)
-                .HasConstraintName("FK_order_bike_stations");
         });
 
         modelBuilder.Entity<Station>(entity =>
