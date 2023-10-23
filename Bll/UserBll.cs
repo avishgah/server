@@ -23,10 +23,19 @@ namespace Bll
             UserDal = b;
             mapper = m;
         }
-        public void AddUser(CustomerDto b)
+        List<CustomerDto> CustomerList;
+        public string AddUser(CustomerDto b)
         {
-
+           CustomerList=mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
+            for(var i=0; i<CustomerList.Count; i++)
+            {
+                if (CustomerList[i].Tz == b.Tz)
+                {
+                    return "Existing user";
+                }
+            }
             this.UserDal.AddUser(mapper.Map<Customer>(b));
+            return "good";
         }
 
         public void DeleteUser(int id)
@@ -34,10 +43,25 @@ namespace Bll
             this.UserDal.DeleteUser(id);
         }
 
-        public CustomerDto GetUser(int id)
+        public CustomerDto GetUser(string id)
         {
             return mapper.Map<CustomerDto>(this.UserDal.GetUser(id));
         }
+
+        public CustomerDto GetUserAndPassword(string id,string pas)
+        {
+            CustomerList = mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
+            for (var i = 0; i < CustomerList.Count; i++)
+            {
+                if (CustomerList[i].Tz == id && CustomerList[i].Password == pas)
+                {
+                    return mapper.Map<CustomerDto>(this.UserDal.GetUser(id));
+                }
+            }
+
+            return null;
+        }
+
 
         public List<CustomerDto> GetUserList()
         {

@@ -25,9 +25,9 @@ namespace Bll
 
             CreateMap<Station, StationDto>();
             CreateMap<StationDto, Station>();
+           // .ForMember(x => x.custName, y => y.MapFrom(z => z.IdCustNavigation.Name))
 
-
-            CreateMap<Order, OrderDto>().ForMember(x=>x.custName , y=>y.MapFrom(z=>z.IdCustNavigation.Name));
+            CreateMap<Order, OrderDto>();
             CreateMap<OrderDto, Order>();
 
 

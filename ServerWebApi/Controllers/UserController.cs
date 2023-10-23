@@ -25,10 +25,19 @@ namespace ServerWebApi.Controllers
 
         // GET api/<UserController1>/5
         [HttpGet("{id}")]
-        public CustomerDto Get(int id)
+        public CustomerDto Get(string id)
         {
             return UserBll.GetUser(id);
         }
+
+
+        // GET api/<UserController1>/5
+        [HttpGet("{id},{password}")]
+        public CustomerDto GetUserAndPassword(string id,string password)
+        {
+            return UserBll.GetUserAndPassword(id,password);
+        }
+
         //post-הוספה
         // POST api/<UserController1>
         [HttpPost]
