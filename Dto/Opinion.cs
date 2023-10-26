@@ -13,7 +13,7 @@ public partial class OpinionDto
 
     public string? Caption { get; set; }
 
-    public int? SatisfactionLeve { get; set; }
+    public double? SatisfactionLeve { get; set; }
 
     public virtual CustomerDto IdNavigation { get; set; } = null!;
 

@@ -44,7 +44,6 @@ namespace Dal
         public void UpdateOpinion(Opinion b, int id)
         {
             Opinion opinion = this.context.Opinions.FirstOrDefault(x => x.Id == id);
-            opinion.Id = id;
             opinion.Caption = b.Caption;
             opinion.IdStationNavigation = b.IdStationNavigation;
             //opinion.na= b.IdNavigation;

@@ -17,11 +17,9 @@ public partial class OrderBikeDto
 
     public bool? Status { get; set; }
 
-    public int? IdStation { get; set; }
 
     public int? Sum { get; set; }
 
-    public DateTime? DateOrder { get; set; }
 
    
 }

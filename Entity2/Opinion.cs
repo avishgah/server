@@ -13,7 +13,7 @@ public partial class Opinion
 
     public string? Caption { get; set; }
 
-    public int? SatisfactionLeve { get; set; }
+    public double? SatisfactionLeve { get; set; }
 
     public DateTime? Date { get; set; }
 

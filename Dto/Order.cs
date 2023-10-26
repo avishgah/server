@@ -10,6 +10,10 @@ public partial class OrderDto
 
     public DateTime? DatePay { get; set; }
 
+    public int? IdStation { get; set; }
+
+    public DateTime? DateOrder { get; set; }
+
     public string? Code { get; set; }
 
     public int? IdCust { get; set; }

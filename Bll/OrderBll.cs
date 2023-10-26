@@ -25,9 +25,11 @@ namespace Bll
 
         public void AddOrder(OrderDto b)
         {
+            int id=b.Id;
+            b.Id = 0;
             Order order = mapper.Map<Order>(b);
             //func hoh many can take
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < id; i++)
             {
                 order.OrderBikes.Add(new OrderBike() { Status = false
                //,DateOrder=DateTime.Now,IdStation=1

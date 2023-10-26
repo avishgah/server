@@ -44,6 +44,8 @@ namespace Dal
         {
             Order or = this.context.Orders.FirstOrDefault(x => x.Id == id);
             or.DatePay = b.DatePay;
+            or.DateOrder = b.DateOrder;
+            or.IdStation = b.IdStation;
             or.Code = b.Code;
             or.IsPay = b.IsPay;
             or.IdCust = b.IdCust;
