@@ -5,6 +5,8 @@ namespace Dto;
 
 public partial class BikeDto
 {
+
+    //comenet for test github
     public int? Id { get; set; }
 
     public string? Code { get; set; }
