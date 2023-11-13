@@ -15,6 +15,6 @@ namespace Dal
         Customer GetUserAndPassword(string id, string pas);
         void DeleteUser(int id);
         void UpdateUser(Customer b, int id);
-        Customer GetUser(string id);
+        Customer GetUser(int id);
     }
 }

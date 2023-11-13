@@ -25,7 +25,7 @@ namespace ServerWebApi.Controllers
 
         // GET api/<UserController1>/5
         [HttpGet("{id}")]
-        public CustomerDto Get(string id)
+        public CustomerDto Get(int id)
         {
             return UserBll.GetUser(id);
         }

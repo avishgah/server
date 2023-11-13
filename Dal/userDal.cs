@@ -30,10 +30,11 @@ namespace Dal
             context.SaveChanges();
         }
 
-        public Customer GetUser(string id)
+        public Customer GetUser(int id)
         {
-            return this.context.Customers.FirstOrDefault(x => x.Tz == id);
+            return this.context.Customers.FirstOrDefault(x => x.Id == id);
         }
+       
         public Customer GetUserAndPassword(string id, string pas)
         {
             return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password==pas);

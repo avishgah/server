@@ -48,6 +48,8 @@ namespace Dal
             Station.Name = b.Name;
             Station.Status = b.Status;
             Station.Location = b.Location;
+            Station.Lat = b.Lat;
+            Station.Lng = b.Lng;    
             context.SaveChanges();
         }
     }

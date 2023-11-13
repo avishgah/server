@@ -29,7 +29,7 @@ public partial class BikeARContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=PF2SAW12\\SQLEXPRESS;Initial Catalog=bike_a&r1;Integrated Security=True; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=PF2SAW12\\SQLEXPRESS;Initial Catalog=bike_a&r1;Integrated Security=True; Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -66,12 +66,10 @@ public partial class BikeARContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("mail");
             entity.Property(e => e.Name)
-                .HasMaxLength(20)
-                .IsFixedLength()
+                .HasMaxLength(50)
                 .HasColumnName("name");
             entity.Property(e => e.Password)
-                .HasMaxLength(10)
-                .IsFixedLength()
+                .HasMaxLength(50)
                 .HasColumnName("password");
             entity.Property(e => e.Phon)
                 .HasMaxLength(10)
@@ -79,7 +77,6 @@ public partial class BikeARContext : DbContext
                 .HasColumnName("phon");
             entity.Property(e => e.Pic)
                 .HasMaxLength(50)
-                .IsFixedLength()
                 .HasColumnName("pic");
             entity.Property(e => e.ReadTerms).HasColumnName("readTerms");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -99,8 +96,7 @@ public partial class BikeARContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Caption)
-                .HasMaxLength(100)
-                .IsFixedLength()
+                .HasMaxLength(200)
                 .HasColumnName("caption");
             entity.Property(e => e.Date)
                 .HasColumnType("date")
@@ -109,9 +105,9 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.SatisfactionLeve).HasColumnName("satisfactionLeve");
 
-            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
-                .HasForeignKey(d => d.IdStation)
-                .HasConstraintName("FK_opinion_stations");
+            //entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
+            //    .HasForeignKey(d => d.IdStation)
+            //    .HasConstraintName("FK_opinion_stations");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -136,9 +132,9 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.IsPay).HasColumnName("isPay");
 
-            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.IdStation)
-                .HasConstraintName("FK_orders_stations");
+            //entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Orders)
+            //    .HasForeignKey(d => d.IdStation)
+            //    .HasConstraintName("FK_orders_stations");
         });
 
         modelBuilder.Entity<OrderBike>(entity =>
@@ -173,6 +169,8 @@ public partial class BikeARContext : DbContext
             entity.ToTable("stations");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Lat).HasColumnName("lat");
+            entity.Property(e => e.Lng).HasColumnName("lng");
             entity.Property(e => e.Location)
                 .HasMaxLength(50)
                 .HasColumnName("location");

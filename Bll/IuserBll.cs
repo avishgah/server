@@ -11,7 +11,7 @@ namespace Bll
         CustomerDto GetUserAndPassword(string id, string pas);
         void DeleteUser(int id);
         void UpdateUser(CustomerDto b, int ID);
-        CustomerDto GetUser(string id);
+        CustomerDto GetUser(int id);
 
     }
 }

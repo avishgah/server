@@ -12,6 +12,9 @@ public partial class StationDto
     public string? Name { get; set; }
 
     public bool Status { get; set; }
+    public double? Lat { get; set; }
+
+    public double? Lng { get; set; }
 
     //public virtual ICollection<BikeDto> Bikes { get; set; } = new List<BikeDto>();
 

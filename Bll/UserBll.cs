@@ -43,23 +43,14 @@ namespace Bll
             this.UserDal.DeleteUser(id);
         }
 
-        public CustomerDto GetUser(string id)
+        public CustomerDto GetUser(int id)
         {
             return mapper.Map<CustomerDto>(this.UserDal.GetUser(id));
         }
 
         public CustomerDto GetUserAndPassword(string id,string pas)
         {
-            CustomerList = mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
-            for (var i = 0; i < CustomerList.Count; i++)
-            {
-                if (CustomerList[i].Tz == id && CustomerList[i].Password == pas)
-                {
-                    return mapper.Map<CustomerDto>(this.UserDal.GetUser(id));
-                }
-            }
-
-            return null;
+           return mapper.Map<CustomerDto>(UserDal.GetUserAndPassword(id,pas));
         }
 
 
