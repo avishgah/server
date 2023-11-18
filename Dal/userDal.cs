@@ -47,7 +47,7 @@ namespace Dal
 
         public void UpdateUser(Customer b, int id)
         {
-            Customer cust = this.context.Customers.FirstOrDefault(x => x.Id == b.Id);
+            Customer cust = this.context.Customers.FirstOrDefault(x => x.Id == id);
             if (cust != null)
             {
                 cust.Tz = b.Tz;
