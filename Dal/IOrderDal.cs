@@ -8,7 +8,7 @@ namespace Dal
 {
     public interface IOrderDal
     {
-        void AddOrder(Order b);
+        int AddOrder(Order b, int count);
         List<Order> GetOrderList();
         void DeleteOrder(int id);
         void UpdateOrder(Order b, int id);

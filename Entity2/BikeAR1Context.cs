@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Entity2;
 
-public partial class BikeARContext : DbContext
+public partial class BikeAR1Context : DbContext
 {
-    public BikeARContext()
+    public BikeAR1Context()
     {
     }
 
-    public BikeARContext(DbContextOptions<BikeARContext> options)
+    public BikeAR1Context(DbContextOptions<BikeAR1Context> options)
         : base(options)
     {
     }
@@ -103,7 +103,16 @@ public partial class BikeARContext : DbContext
                 .HasColumnName("date");
             entity.Property(e => e.IdCust).HasColumnName("idCust");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
+            entity.Property(e => e.NumBike)
+                .HasMaxLength(50)
+                .HasColumnName("numBike");
+            entity.Property(e => e.Place)
+                .HasMaxLength(50)
+                .HasColumnName("place");
             entity.Property(e => e.SatisfactionLeve).HasColumnName("satisfactionLeve");
+            entity.Property(e => e.TypeProblem)
+                .HasMaxLength(100)
+                .HasColumnName("typeProblem");
 
             //entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
             //    .HasForeignKey(d => d.IdStation)

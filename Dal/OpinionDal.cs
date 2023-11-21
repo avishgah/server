@@ -18,7 +18,6 @@ namespace Dal
 
         public void AddOpinion(Opinion b)
         {
-
             context.Opinions.Add(b);
             context.SaveChanges();
         }
@@ -45,11 +44,14 @@ namespace Dal
         {
             Opinion opinion = this.context.Opinions.FirstOrDefault(x => x.Id == id);
             opinion.Caption = b.Caption;
-            opinion.IdStationNavigation = b.IdStationNavigation;
+           // opinion.IdStationNavigation = b.IdStationNavigation;
             //opinion.na= b.IdNavigation;
             opinion.IdCust = b.IdCust;
             opinion.IdStation= b.IdStation;
             opinion.SatisfactionLeve = b.SatisfactionLeve;
+            opinion.NumBike = b.NumBike;
+            opinion.Place= b.Place;
+            opinion.TypeProblem = b.TypeProblem;
             context.SaveChanges();
         }
     }

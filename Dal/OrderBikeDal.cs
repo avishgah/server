@@ -38,6 +38,29 @@ namespace Dal
             return context.OrderBikes.ToList();
         }
 
+        public void GetBike(OrderBike b, int id)
+        {
+            OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+            if (OrderBike != null)
+            {
+                OrderBike.IdBike = b.IdBike;
+                OrderBike.Status = true;
+                OrderBike.DateStart =DateTime.Now;
+                context.SaveChanges();
+            }
+        }
+
+        public void SetBike( int id)
+        {
+            OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+            if (OrderBike != null)
+            {
+               // OrderBike.Sum = b.Sum;
+                OrderBike.DateEnd =DateTime.Now;
+                context.SaveChanges();
+            }
+        }
+
         public void UpdateOrderBike(OrderBike b, int id)
         {
             OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);

@@ -16,11 +16,26 @@ namespace Dal
             context = con;
         }
 
-        public void AddOrder(Order b)
+        public int AddOrder(Order b, int count)
         {
-           
-            context.Orders.Add(b);
-            context.SaveChanges();
+            b.DateOrder = DateTime.Now;
+            int countBIkesAreOrder = context.OrderBikes.Count(x => x.IdPayNavigation.IdStation == b.IdStation && (x.Status == false && x.IdPayNavigation.DateOrder > DateTime.Now.AddMinutes(-30) || x.Status == true && x.DateEnd == null));
+            int countBikes = context.Bikes.Count(x => x.IdStation == b.IdStation && !x.OrderBikes.Any(y => y.DateEnd != null));
+            if (countBikes - countBIkesAreOrder < count)
+            {
+                return -1;
+            }
+            else
+            {
+
+                for (int i = 0; i < count; i++)
+                {
+                    b.OrderBikes.Add(new OrderBike() { Status = false });
+                }
+                context.Orders.Add(b);
+                context.SaveChanges();
+                return b.Id;
+            }
         }
 
         public void DeleteOrder(int id)

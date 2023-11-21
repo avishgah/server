@@ -17,5 +17,11 @@ public partial class Opinion
 
     public DateTime? Date { get; set; }
 
-    public virtual Station? IdStationNavigation { get; set; }
+    public string? Place { get; set; }
+
+    public string? TypeProblem { get; set; }
+
+    public string? NumBike { get; set; }
+
+    //public virtual Station? IdStationNavigation { get; set; }
 }

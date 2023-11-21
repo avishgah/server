@@ -10,7 +10,7 @@ namespace Bll
 {
     public interface IOrderBll
     {
-        void AddOrder(OrderDto b);
+        int AddOrder(OrderDto b);
 
         List<OrderDto> GetOrderList();
         void DeleteOrder(int id);

@@ -23,6 +23,7 @@ public partial class OrderDto
     public bool? IsPay { get; set; }
 
     public string? custName { get; set; } = "";
+    public int count { get; set;}
 
 
 }

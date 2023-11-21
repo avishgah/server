@@ -23,19 +23,15 @@ namespace Bll
             mapper = m;
         }
 
-        public void AddOrder(OrderDto b)
+        public int AddOrder(OrderDto b)
         {
-            int id=b.Id;
+            int id = b.Id;
             b.Id = 0;
             Order order = mapper.Map<Order>(b);
+            order.DateOrder = DateTime.Now;
             //func hoh many can take
-            for (int i = 0; i < id; i++)
-            {
-                order.OrderBikes.Add(new OrderBike() { Status = false
-               //,DateOrder=DateTime.Now,IdStation=1
-                });
-            }
-            this.OrderDal.AddOrder(order);
+           
+           return this.OrderDal.AddOrder(order,b.count);
         }
 
         public void DeleteOrder(int id)

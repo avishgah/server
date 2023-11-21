@@ -15,7 +15,14 @@ public partial class OpinionDto
 
     public double? SatisfactionLeve { get; set; }
 
-    public virtual CustomerDto IdNavigation { get; set; } = null!;
+    public DateTime? Date { get; set; }
 
-    public virtual StationDto? IdStationNavigation { get; set; }
+    public string? Place { get; set; }
+
+    public string? TypeProblem { get; set; }
+
+    public string? NumBike { get; set; }
+
+    public virtual CustomerDto IdNavigation { get; set; } = null!;
+  public virtual StationDto? IdStationNavigation { get; set; }
 }

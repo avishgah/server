@@ -17,7 +17,7 @@ public partial class Station
 
     public double? Lng { get; set; }
 
-    public virtual ICollection<Bike> Bikes { get; set; } = new List<Bike>();
+    //public virtual ICollection<Bike> Bikes { get; set; } = new List<Bike>();
 
     //public virtual ICollection<Opinion> Opinions { get; set; } = new List<Opinion>();
 
