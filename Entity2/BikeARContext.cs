@@ -19,6 +19,8 @@ public partial class BikeARContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<HistoryView> HistoryViews { get; set; }
+
     public virtual DbSet<Opinion> Opinions { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -27,9 +29,11 @@ public partial class BikeARContext : DbContext
 
     public virtual DbSet<Station> Stations { get; set; }
 
+    public virtual DbSet<StationView> StationViews { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=PF2SAW12\\SQLEXPRESS;Initial Catalog=bike_a&r1;Integrated Security=True; Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=PF2SAW12\\SQLEXPRESS;Initial Catalog=bike_a&r1;Integrated Security=True; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,9 +49,9 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.DateStart).HasColumnType("date");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
 
-            //entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Bikes)
-            //    .HasForeignKey(d => d.IdStation)
-            //    .HasConstraintName("FK_bike_stations");
+            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Bikes)
+                .HasForeignKey(d => d.IdStation)
+                .HasConstraintName("FK_bike_stations");
         });
 
         modelBuilder.Entity<Customer>(entity =>
@@ -88,6 +92,36 @@ public partial class BikeARContext : DbContext
                 .HasColumnName("tz");
         });
 
+        modelBuilder.Entity<HistoryView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("history_view");
+
+            entity.Property(e => e.Code)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("code");
+            entity.Property(e => e.Count).HasColumnName("count");
+            entity.Property(e => e.DateOrder)
+                .HasColumnType("datetime")
+                .HasColumnName("dateOrder");
+            entity.Property(e => e.DatePay)
+                .HasColumnType("datetime")
+                .HasColumnName("datePay");
+            entity.Property(e => e.EndSum).HasColumnName("endSum");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdCust).HasColumnName("idCust");
+            entity.Property(e => e.IdStation).HasColumnName("idStation");
+            entity.Property(e => e.IsPay).HasColumnName("isPay");
+            entity.Property(e => e.Location)
+                .HasMaxLength(50)
+                .HasColumnName("location");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<Opinion>(entity =>
         {
             entity.ToTable("opinion");
@@ -103,11 +137,20 @@ public partial class BikeARContext : DbContext
                 .HasColumnName("date");
             entity.Property(e => e.IdCust).HasColumnName("idCust");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
+            entity.Property(e => e.NumBike)
+                .HasMaxLength(50)
+                .HasColumnName("numBike");
+            entity.Property(e => e.Place)
+                .HasMaxLength(50)
+                .HasColumnName("place");
             entity.Property(e => e.SatisfactionLeve).HasColumnName("satisfactionLeve");
+            entity.Property(e => e.TypeProblem)
+                .HasMaxLength(100)
+                .HasColumnName("typeProblem");
 
-            //entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
-            //    .HasForeignKey(d => d.IdStation)
-            //    .HasConstraintName("FK_opinion_stations");
+            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
+                .HasForeignKey(d => d.IdStation)
+                .HasConstraintName("FK_opinion_stations");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -122,19 +165,19 @@ public partial class BikeARContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("code");
             entity.Property(e => e.DateOrder)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("dateOrder");
             entity.Property(e => e.DatePay)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("datePay");
             entity.Property(e => e.EndSum).HasColumnName("endSum");
             entity.Property(e => e.IdCust).HasColumnName("idCust");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.IsPay).HasColumnName("isPay");
 
-            //entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Orders)
-            //    .HasForeignKey(d => d.IdStation)
-            //    .HasConstraintName("FK_orders_stations");
+            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.IdStation)
+                .HasConstraintName("FK_orders_stations");
         });
 
         modelBuilder.Entity<OrderBike>(entity =>
@@ -169,6 +212,26 @@ public partial class BikeARContext : DbContext
             entity.ToTable("stations");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Lat).HasColumnName("lat");
+            entity.Property(e => e.Lng).HasColumnName("lng");
+            entity.Property(e => e.Location)
+                .HasMaxLength(50)
+                .HasColumnName("location");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<StationView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("station_view");
+
+            entity.Property(e => e.Cun).HasColumnName("cun");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.Lat).HasColumnName("lat");
             entity.Property(e => e.Lng).HasColumnName("lng");
             entity.Property(e => e.Location)

@@ -23,5 +23,5 @@ public partial class Opinion
 
     public string? NumBike { get; set; }
 
-    //public virtual Station? IdStationNavigation { get; set; }
+    public virtual Station? IdStationNavigation { get; set; }
 }

@@ -49,6 +49,10 @@ namespace Dal
         {
             return this.context.Orders.FirstOrDefault(x => x.Id == id);
         }
+        public  List<Order> GetOrderByIdCust(int id)
+        {
+            return (List<Order>)this.context.Orders.Where(x => x.IdCust == id).ToList();
+        }
 
         public List<Order> GetOrderList()
         {

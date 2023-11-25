@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Entity2;
 
-public partial class Station
+public partial class StationView
 {
     public int Id { get; set; }
 
@@ -17,9 +17,7 @@ public partial class Station
 
     public double? Lng { get; set; }
 
-    public virtual ICollection<Bike> Bikes { get; set; } = new List<Bike>();
+    public int? IdStation { get; set; }
 
-    public virtual ICollection<Opinion> Opinions { get; set; } = new List<Opinion>();
-
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public int? Cun { get; set; }
 }

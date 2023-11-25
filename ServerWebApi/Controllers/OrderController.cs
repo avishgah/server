@@ -18,18 +18,27 @@ namespace ServerWebApi.Controllers
 
         // GET: api/<OrderController>
         [HttpGet]
-     
+
         public List<OrderDto> Get()
         {
             return orderBll.GetOrderList();
         }
 
         // GET api/<OrderController>/5
-        [HttpGet("{id}")]
+        [HttpGet("/api/order/get/{id}")]
         public OrderDto Get(int id)
         {
             return orderBll.GetOrder(id);
         }
+
+
+        //????????
+        [HttpGet("/api/order/GetOrderById/{id}")]
+        public List<OrderDto> GetOrderById(int id)
+        {
+            return orderBll.GetOrderByIdCust(id);
+        }
+
         // POST api/<OrderController>
         [HttpPost]
         public void Post([FromBody] OrderDto b)
