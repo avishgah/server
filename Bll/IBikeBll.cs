@@ -13,6 +13,7 @@ namespace Bll
         void AddBike(BikeDto b);
 
         List<BikeDto> GetBikeList();
+  
         void DeleteBike(int id);
         void UpdateBike(BikeDto b, int ID);
         BikeDto GetBike(int id);

@@ -19,5 +19,7 @@ public partial class Bike
 
     public virtual Station? IdStationNavigation { get; set; }
 
+    public virtual ICollection<Opinion> Opinions { get; set; } = new List<Opinion>();
+
     public virtual ICollection<OrderBike> OrderBikes { get; set; } = new List<OrderBike>();
 }

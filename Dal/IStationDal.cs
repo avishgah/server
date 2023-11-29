@@ -12,6 +12,7 @@ namespace Dal
         void AddStation(Station b);
 
         List<Station> GetStationList();
+        List<Station> GetStationListWhereTrue();
         void DeleteStation(int id);
         void UpdateStation(Station b, int id);
         Station GetStation(int id);

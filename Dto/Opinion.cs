@@ -21,8 +21,11 @@ public partial class OpinionDto
 
     public string? TypeProblem { get; set; }
 
-    public string? NumBike { get; set; }
+    public int? idBike { get; set; }
 
-    public virtual CustomerDto IdNavigation { get; set; } = null!;
-  public virtual StationDto? IdStationNavigation { get; set; }
+    public string? Pic { get; set; }
+
+
+  //  public virtual CustomerDto IdNavigation { get; set; } = null!;
+  //public virtual StationDto? IdStationNavigation { get; set; }
 }

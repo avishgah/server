@@ -17,10 +17,15 @@ namespace ServerWebApi.Controllers
         }
         //get-שליפה
         // GET: api/<StationController1>
-        [HttpGet]
+        [HttpGet("/api/Station/Get")]
         public List<StationDto> Get()
         {
             return StationBll.GetStationList();
+        }
+        [HttpGet("/api/Station/GetStationListWhereTrue")]
+        public List<StationDto> GetStationListWhereTrue()
+        {
+            return StationBll.GetStationListWhereTrue();
         }
 
         // GET api/<StationController1>/5

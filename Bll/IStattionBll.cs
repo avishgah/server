@@ -13,6 +13,7 @@ namespace Bll
         void AddStation(StationDto b);
 
         List<StationDto> GetStationList();
+        List<StationDto> GetStationListWhereTrue();
         void DeleteStation(int id);
         void UpdateStation(StationDto b, int ID);
         StationDto GetStation(int id);

@@ -21,7 +21,9 @@ public partial class Opinion
 
     public string? TypeProblem { get; set; }
 
-    public string? NumBike { get; set; }
+    public string? Pic { get; set; }
 
-    public virtual Station? IdStationNavigation { get; set; }
+    public int? IdBike { get; set; }
+
+    public virtual Bike? IdBikeNavigation { get; set; }
 }

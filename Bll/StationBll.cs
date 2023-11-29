@@ -24,7 +24,7 @@ namespace Bll
         
         public void AddStation(StationDto b)
         {
-            this.StationDal.AddStation(mapper.Map<Station>(b));
+             this.StationDal.AddStation(mapper.Map<Station>(b));
         }
 
         public void DeleteStation(int id)
@@ -41,6 +41,11 @@ namespace Bll
         public List<StationDto> GetStationList()
         {
             return mapper.Map<List<StationDto>>(StationDal.GetStationList());
+        }
+
+        public List<StationDto> GetStationListWhereTrue()
+        {
+            return mapper.Map<List<StationDto>>(StationDal.GetStationListWhereTrue());
         }
 
         public void UpdateStation(StationDto b, int ID)

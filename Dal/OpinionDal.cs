@@ -49,9 +49,10 @@ namespace Dal
             opinion.IdCust = b.IdCust;
             opinion.IdStation= b.IdStation;
             opinion.SatisfactionLeve = b.SatisfactionLeve;
-            opinion.NumBike = b.NumBike;
+            opinion.IdBike = b.IdBike;
             opinion.Place= b.Place;
             opinion.TypeProblem = b.TypeProblem;
+            opinion.Pic= b.Pic;
             context.SaveChanges();
         }
     }

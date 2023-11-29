@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entity2;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dal
 {
@@ -19,7 +20,6 @@ namespace Dal
 
         public void AddStation(Station b)
         {
-
             context.Stations.Add(b);
             context.SaveChanges();
         }
@@ -39,6 +39,10 @@ namespace Dal
         public List<Station> GetStationList()
         {
             return context.Stations.ToList();
+        }
+        public List<Station> GetStationListWhereTrue()
+        {
+            return context.Stations.Where(x => x.Status == true).ToList();
         }
 
         public void UpdateStation(Station b, int id)
