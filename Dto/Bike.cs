@@ -7,7 +7,7 @@ public partial class BikeDto
 {
 
     //comenet for test github
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     public string? Code { get; set; }
 
@@ -16,4 +16,7 @@ public partial class BikeDto
     public int? IdStation { get; set; }
 
     public DateTime? DateStart { get; set; }
+
+    public bool? Status { get; set; }
+
 }

@@ -17,9 +17,6 @@ public partial class OrderBikeDto
 
     public bool? Status { get; set; }
 
+    public double? Sum { get; set; }
 
-    public int? Sum { get; set; }
-
-
-   
 }

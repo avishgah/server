@@ -46,6 +46,7 @@ namespace Dal
             bike.IdStation = b.IdStation;
             bike.Battery = b.Battery;
             bike.Code = b.Code;
+            bike.Status = b.Status;
             context.SaveChanges();
         }
     }

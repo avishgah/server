@@ -29,7 +29,7 @@ namespace Bll
            CustomerList=mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
             for(var i=0; i<CustomerList.Count; i++)
             {
-                if (CustomerList[i].Tz == b.Tz)
+                if (CustomerList[i].Tz == b.Tz || CustomerList[i].Mail == b.Mail)
                 {
                     return "Existing user";
                 }

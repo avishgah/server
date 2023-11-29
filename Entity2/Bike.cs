@@ -15,6 +15,8 @@ public partial class Bike
 
     public DateTime? DateStart { get; set; }
 
+    public bool? Status { get; set; }
+
     public virtual Station? IdStationNavigation { get; set; }
 
     public virtual ICollection<OrderBike> OrderBikes { get; set; } = new List<OrderBike>();

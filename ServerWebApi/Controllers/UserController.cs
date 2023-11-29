@@ -41,6 +41,8 @@ namespace ServerWebApi.Controllers
         //post-הוספה
         // POST api/<UserController1>
         [HttpPost]
+     
+        [HttpPost]
         public void Post([FromBody] CustomerDto b)
         {
             UserBll.AddUser(b);

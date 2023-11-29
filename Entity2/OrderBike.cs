@@ -17,7 +17,7 @@ public partial class OrderBike
 
     public bool? Status { get; set; }
 
-    public int? Sum { get; set; }
+    public double? Sum { get; set; }
 
     public virtual Bike? IdBikeNavigation { get; set; }
 

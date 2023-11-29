@@ -18,7 +18,7 @@ public partial class OrderDto
 
     public int? IdCust { get; set; }
 
-    public int? EndSum { get; set; }
+    public double? EndSum { get; set; }
 
     public bool? IsPay { get; set; }
 

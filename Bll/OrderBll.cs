@@ -25,13 +25,13 @@ namespace Bll
 
         public int AddOrder(OrderDto b)
         {
-            int id = b.Id;
-            b.Id = 0;
+            //int id = b.Id;
+            //b.Id = 0;
             Order order = mapper.Map<Order>(b);
-            order.DateOrder = DateTime.Now;
+            //order.DateOrder = DateTime.Now;
             //func hoh many can take
            
-           return this.OrderDal.AddOrder(order,b.count);
+           return this.OrderDal.AddOrder(order ,b.count);
         }
 
         public void DeleteOrder(int id)
