@@ -10,8 +10,9 @@ namespace Dal
     {
         int AddOrder(Order b, int count);
         List<Order> GetOrderList();
-        List<Order> GetOrderByIdCust(int id);
+        List<Order> GetOrderByIdCust(string id);
         void DeleteOrder(int id);
+
         void UpdateOrder(Order b, int id);
         Order GetOrder(int id);
     }

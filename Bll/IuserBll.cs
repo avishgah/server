@@ -6,7 +6,7 @@ namespace Bll
     {
 
         string AddUser(CustomerDto b);
-
+        CustomerDto GetUserByTz(string id);
         List<CustomerDto> GetUserList();
         CustomerDto GetUserAndPassword(string id, string pas);
         void DeleteUser(int id);

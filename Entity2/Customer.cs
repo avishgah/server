@@ -30,4 +30,8 @@ public partial class Customer
     public bool? Status { get; set; }
 
     public bool ReadTerms { get; set; }
+
+    public virtual ICollection<Opinion> Opinions { get; set; } = new List<Opinion>();
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

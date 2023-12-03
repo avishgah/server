@@ -24,10 +24,16 @@ namespace ServerWebApi.Controllers
         }
 
         // GET api/<UserController1>/5
-        [HttpGet("{id}")]
+        [HttpGet("/api/user/GetUserById/{id}")]
         public CustomerDto Get(int id)
         {
             return UserBll.GetUser(id);
+        }
+        // GET api/<UserController1>/5
+        [HttpGet("/api/user/GetUserByTz/{id}")]
+        public CustomerDto Get(string id)
+        {
+            return UserBll.GetUserByTz(id);
         }
 
 

@@ -34,7 +34,11 @@ namespace Dal
         {
             return this.context.Customers.FirstOrDefault(x => x.Id == id);
         }
-       
+        public Customer GetUserByTz(string id)
+        {
+            return this.context.Customers.FirstOrDefault(x => x.Tz == id);
+        }
+
         public Customer GetUserAndPassword(string id, string pas)
         {
             return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password==pas);

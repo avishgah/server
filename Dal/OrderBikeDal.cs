@@ -33,9 +33,17 @@ namespace Dal
             return this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
         }
 
+
+
+
         public List<OrderBike> GetOrderBikeList()
         {
             return context.OrderBikes.ToList();
+        }
+
+        public List<OrderBike> GetOrderBikeListByIdList(int id)
+        {
+            return this.context.OrderBikes.Where(x => x.IdPay == id).ToList();
         }
 
         public void GetBike(OrderBike b, int id)

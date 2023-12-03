@@ -153,6 +153,14 @@ public partial class BikeARContext : DbContext
             entity.HasOne(d => d.IdBikeNavigation).WithMany(p => p.Opinions)
                 .HasForeignKey(d => d.IdBike)
                 .HasConstraintName("FK_opinion_bike");
+
+            entity.HasOne(d => d.IdCustNavigation).WithMany(p => p.Opinions)
+                .HasForeignKey(d => d.IdCust)
+                .HasConstraintName("FK_opinion_Customer");
+
+            entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Opinions)
+                .HasForeignKey(d => d.IdStation)
+                .HasConstraintName("FK_opinion_Station");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -175,6 +183,10 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.IdCust).HasColumnName("idCust");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.IsPay).HasColumnName("isPay");
+
+            entity.HasOne(d => d.IdCustNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.IdCust)
+                .HasConstraintName("FK_orders_customers");
 
             entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdStation)

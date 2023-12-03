@@ -30,7 +30,12 @@ builder.Services.AddScoped<IOrderDal, OrderDal>();
 builder.Services.AddScoped<IOrderBikeBll, OrderBikeBll>();
 builder.Services.AddScoped<IOrderBikeDal, OrderBikeDal>();
 
+builder.Services.AddScoped<IStationViewBll, StationViewBll>();
+builder.Services.AddScoped<IStationViewDal, StationViewDal>();
+
+
 builder.Services.AddDbContext<BikeARContext>();
+
 var config = new MapperConfiguration(m =>
   m.AddProfile(new MapProfile()));
 IMapper map = config.CreateMapper();

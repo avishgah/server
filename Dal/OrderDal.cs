@@ -30,7 +30,11 @@ namespace Dal
 
                 for (int i = 0; i < count; i++)
                 {
-                    b.OrderBikes.Add(new OrderBike() { Status = false });
+
+                    Bike bike=context.Bikes.FirstOrDefault(x=>x.IdStation == b.IdStation && x.Status==true);
+                    b.OrderBikes.Add(new OrderBike() { Status = false,IdBike=bike.Id });
+                    bike.Status = false;
+                    context.SaveChanges();
                 }
                 context.Orders.Add(b);
                 context.SaveChanges();
@@ -49,9 +53,11 @@ namespace Dal
         {
             return this.context.Orders.FirstOrDefault(x => x.Id == id);
         }
-        public  List<Order> GetOrderByIdCust(int id)
+
+        public  List<Order> GetOrderByIdCust(string id)
         {
-            return (List<Order>)this.context.Orders.Where(x => x.IdCust == id).ToList();
+            Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
+            return this.context.Orders.Where(x => x.IdCust == cust.Id).ToList();
         }
 
         public List<Order> GetOrderList()

@@ -11,6 +11,7 @@ namespace Bll
     public interface IOrderBikeBll
     {
         void AddOrderBike(OrderBikeDto b);
+        List<OrderBikeDto> GetOrderBikeListByIdList(int id);
 
         List<OrderBikeDto> GetOrderBikeList();
         void DeleteOrderBike(int id);

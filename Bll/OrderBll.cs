@@ -49,7 +49,7 @@ namespace Bll
             return mapper.Map<List<OrderDto>>(OrderDal.GetOrderList());
         }
 
-        public List<OrderDto> GetOrderByIdCust(int id)
+        public List<OrderDto> GetOrderByIdCust(string id)
         {
             return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCust(id));
         }

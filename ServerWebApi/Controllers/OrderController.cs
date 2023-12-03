@@ -34,7 +34,7 @@ namespace ServerWebApi.Controllers
 
         //????????
         [HttpGet("/api/order/GetOrderById/{id}")]
-        public List<OrderDto> GetOrderById(int id)
+        public List<OrderDto> GetOrderById(string id)
         {
             return orderBll.GetOrderByIdCust(id);
         }

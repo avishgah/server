@@ -13,7 +13,7 @@ namespace Bll
         int AddOrder(OrderDto b);
 
         List<OrderDto> GetOrderList();
-        List<OrderDto> GetOrderByIdCust(int id);
+        List<OrderDto> GetOrderByIdCust(string id);
         void DeleteOrder(int id);
         void UpdateOrder(OrderDto b, int ID);
         OrderDto GetOrder(int id);

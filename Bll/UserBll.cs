@@ -48,6 +48,11 @@ namespace Bll
             return mapper.Map<CustomerDto>(this.UserDal.GetUser(id));
         }
 
+        public CustomerDto GetUserByTz(string id)
+        {
+            return mapper.Map<CustomerDto>(this.UserDal.GetUserByTz(id));
+        }
+
         public CustomerDto GetUserAndPassword(string id,string pas)
         {
            return mapper.Map<CustomerDto>(UserDal.GetUserAndPassword(id,pas));

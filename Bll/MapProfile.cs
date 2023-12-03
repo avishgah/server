@@ -13,7 +13,7 @@ namespace Bll
     {
         public MapProfile()
         {
-            CreateMap<Bike,BikeDto>();
+            CreateMap<Bike, BikeDto>();
             CreateMap<BikeDto, Bike>();
 
             CreateMap<Customer, CustomerDto>();
@@ -35,6 +35,10 @@ namespace Bll
             CreateMap<OrderBike, OrderBikeDto>();
             CreateMap<OrderBikeDto, OrderBike>();
             //
+
+
+            CreateMap<StationView, StationViewDto>();
+            CreateMap<StationViewDto, StationView>();
         }
     }
 }

@@ -25,10 +25,16 @@ namespace ServerWebApi.Controllers
         }
 
         // GET api/<BikeController1>/5
-        [HttpGet("{id}")]
+        [HttpGet("/api/orderBike/GetOrderById/{id}")]
         public OrderBikeDto Get(int id)
         {
             return OrderBike.GetOrderBike(id);
+        }
+
+        [HttpGet("/api/orderBike/GetOrderByIdOrder/{id}")]
+        public List<OrderBikeDto> GetOrders(int id)
+        {
+            return OrderBike.GetOrderBikeListByIdList(id);
         }
         //post-הוספה
         // POST api/<BikeController1>
