@@ -38,6 +38,15 @@ namespace Bll
             return mapper.Map<OrderBikeDto>(this.OrderBikeDal.GetOrderBike(id));
         }
 
+
+        public TimeSpan CalcTime(int id)
+        {
+            return mapper.Map<TimeSpan>(OrderBikeDal.CalcTime(id));
+        }
+        public double CalcSum(int id)
+        {
+            return mapper.Map<double>(OrderBikeDal.CalcSum(id));
+        }
         public List<OrderBikeDto> GetOrderBikeList()
         {
             return mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeList());

@@ -53,6 +53,10 @@ namespace Bll
         {
             return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCust(id));
         }
+        public List<OrderDto> GetOrderByIdCustNotDone(string id)
+        {
+            return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCustNotDone(id));
+        }
 
         public void UpdateOrder(OrderDto b, int ID)
         {

@@ -59,6 +59,58 @@ namespace Dal
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
             return this.context.Orders.Where(x => x.IdCust == cust.Id).ToList();
         }
+        public List<Order> GetOrderByIdCustNotDone(string id)
+        {
+            double sum = 0;
+            List<Order> lst=new List<Order>();
+            List<Order> lst2=new List<Order>();
+            Order o;
+            Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
+
+            lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay != true).ToList();
+
+           foreach(var item in lst)
+            {
+
+                //calac minute
+                DateTime datestart = item.DateOrder.Value;
+                Console.WriteLine(datestart);
+                DateTime dateend = DateTime.Now;
+                Console.WriteLine(dateend);
+                TimeSpan span = dateend.Subtract(datestart);
+
+
+                double day = span.Days;
+                Console.WriteLine(day);
+                double minute = span.Minutes;
+                Console.WriteLine(minute);
+                double houres = span.Hours + (day * 24);
+                sum += ((houres * 60) + minute);
+                 //
+                if(sum >= 30)
+                {
+                    List<OrderBike> lsto = null;
+                    lsto=this.context.OrderBikes.Where(x=>x.IdPay==item.Id).ToList();
+                    foreach(var item2 in lsto)
+                    {
+                        item2.Status = false;
+                        Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == item2.IdBike);
+                        bike.Status = true;
+                        context.SaveChanges();
+                    }
+                    //delete order?
+                    item.IdCust = null;
+                    item.IdStation = null;
+                }
+                else
+                {
+                    lst2.Add(item);
+                }
+
+            }
+            return lst2;
+       
+        }
 
         public List<Order> GetOrderList()
         {

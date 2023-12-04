@@ -11,6 +11,7 @@ namespace Dal
         int AddOrder(Order b, int count);
         List<Order> GetOrderList();
         List<Order> GetOrderByIdCust(string id);
+        List<Order> GetOrderByIdCustNotDone(string id);
         void DeleteOrder(int id);
 
         void UpdateOrder(Order b, int id);

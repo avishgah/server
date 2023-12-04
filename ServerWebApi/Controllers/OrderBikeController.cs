@@ -36,6 +36,17 @@ namespace ServerWebApi.Controllers
         {
             return OrderBike.GetOrderBikeListByIdList(id);
         }
+
+        [HttpGet("/api/orderBike/calcTime/{id}")]
+        public TimeSpan CalcTime(int id)
+        {
+            return OrderBike.CalcTime(id);
+        }
+        [HttpGet("/api/orderBike/calcSum/{id}")]
+        public double CalcSum(int id)
+        {
+            return OrderBike.CalcSum(id);
+        }
         //post-הוספה
         // POST api/<BikeController1>
         [HttpPost]

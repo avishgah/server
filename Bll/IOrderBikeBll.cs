@@ -12,7 +12,8 @@ namespace Bll
     {
         void AddOrderBike(OrderBikeDto b);
         List<OrderBikeDto> GetOrderBikeListByIdList(int id);
-
+        TimeSpan CalcTime(int id);
+        double CalcSum(int id);
         List<OrderBikeDto> GetOrderBikeList();
         void DeleteOrderBike(int id);
         void UpdateOrderBike(OrderBikeDto b, int ID);

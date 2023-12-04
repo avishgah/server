@@ -14,6 +14,7 @@ namespace Bll
 
         List<OrderDto> GetOrderList();
         List<OrderDto> GetOrderByIdCust(string id);
+        List<OrderDto> GetOrderByIdCustNotDone(string id);
         void DeleteOrder(int id);
         void UpdateOrder(OrderDto b, int ID);
         OrderDto GetOrder(int id);

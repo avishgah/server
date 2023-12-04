@@ -33,12 +33,17 @@ namespace ServerWebApi.Controllers
 
 
         //????????
-        [HttpGet("/api/order/GetOrderById/{id}")]
-        public List<OrderDto> GetOrderById(string id)
+        [HttpGet("/api/order/GetOrderByIdCust/{id}")]
+        public List<OrderDto> GetOrderByIdCust(string id)
         {
             return orderBll.GetOrderByIdCust(id);
         }
-
+        //????????
+        [HttpGet("/api/order/GetOrderByIdCustNotDone/{id}")]
+        public List<OrderDto> GetOrderByIdCustNotDone(string id)
+        {
+            return orderBll.GetOrderByIdCustNotDone(id);
+        }
         // POST api/<OrderController>
         [HttpPost]
         public void Post([FromBody] OrderDto b)

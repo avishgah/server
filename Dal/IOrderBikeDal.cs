@@ -9,7 +9,8 @@ namespace Dal
     public interface IOrderBikeDal
     {
         void AddOrderBike(OrderBike b);
-
+        TimeSpan CalcTime(int id);
+        double CalcSum(int id);
         List<OrderBike> GetOrderBikeList();
         List<OrderBike> GetOrderBikeListByIdList(int id);
 

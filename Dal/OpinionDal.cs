@@ -19,6 +19,19 @@ namespace Dal
         public void AddOpinion(Opinion b)
         {
             context.Opinions.Add(b);
+            if (b.Place == "תקלה באופניים")
+            {
+                Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == b.IdBike);
+                bike.Status = false;
+                context.SaveChanges();
+            }
+            else
+            {
+                Station sts = this.context.Stations.FirstOrDefault(x=>x.Id == b.IdStation); 
+                sts.Status = false;
+                context.SaveChanges();
+            }
+
             context.SaveChanges();
         }
 
@@ -44,15 +57,15 @@ namespace Dal
         {
             Opinion opinion = this.context.Opinions.FirstOrDefault(x => x.Id == id);
             opinion.Caption = b.Caption;
-           // opinion.IdStationNavigation = b.IdStationNavigation;
+            // opinion.IdStationNavigation = b.IdStationNavigation;
             //opinion.na= b.IdNavigation;
             opinion.IdCust = b.IdCust;
-            opinion.IdStation= b.IdStation;
+            opinion.IdStation = b.IdStation;
             opinion.SatisfactionLeve = b.SatisfactionLeve;
             opinion.IdBike = b.IdBike;
-            opinion.Place= b.Place;
+            opinion.Place = b.Place;
             opinion.TypeProblem = b.TypeProblem;
-            opinion.Pic= b.Pic;
+            opinion.Pic = b.Pic;
             context.SaveChanges();
         }
     }

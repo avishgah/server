@@ -35,6 +35,56 @@ namespace Dal
 
 
 
+        public double CalcSum(int id)
+        {
+            //דמי שחרור
+            double sum = 5;
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+            if (o != null)
+            {
+                o.DateEnd = DateTime.Now;
+                //int time2 = o.DateStart.Value;
+                DateTime datestart = o.DateStart.Value;
+                Console.WriteLine(datestart);
+                DateTime dateend = DateTime.Now;
+                Console.WriteLine(dateend);
+                TimeSpan span = dateend.Subtract(datestart);
+                Console.WriteLine(span);
+
+
+                double day = span.Days;
+                Console.WriteLine(day);
+                double minute = span.Minutes;
+                Console.WriteLine(minute);
+                double houres = span.Hours + (day * 24);
+                sum += ((houres * 60) + minute) * 0.45;
+
+                return sum;
+            }
+            return 0;
+        }
+
+        public TimeSpan CalcTime(int id)
+        {
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+            if (o != null)
+            {
+                o.DateEnd = DateTime.Now;
+                //int time2 = o.DateStart.Value;
+                DateTime datestart = o.DateStart.Value;
+                Console.WriteLine(datestart);
+                DateTime dateend = DateTime.Now;
+                Console.WriteLine(dateend);
+                TimeSpan span = dateend.Subtract(datestart);
+
+                Console.WriteLine(span);
+                return span;
+            }
+            return TimeSpan.Zero;
+        }
+
+
+
 
         public List<OrderBike> GetOrderBikeList()
         {
@@ -71,14 +121,33 @@ namespace Dal
 
         public void UpdateOrderBike(OrderBike b, int id)
         {
-            OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
-            OrderBike.IdBike=b.IdBike;
-            OrderBike.IdPay=b.IdPay;
-            OrderBike.Status = b.Status;
-            OrderBike.Sum=b.Sum;
-            OrderBike.DateStart=b.DateStart;
-            OrderBike.DateEnd=b.DateEnd;
-            context.SaveChanges();
+
+            if(b.Sum == 0)
+            {
+                OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+                //OrderBike.IdBike=b.IdBike;
+                //OrderBike.IdPay=b.IdPay;
+                OrderBike.Status = true;
+                //OrderBike.Sum=b.Sum;
+                OrderBike.DateStart = DateTime.Now;
+                //OrderBike.DateEnd=b.DateEnd;
+                context.SaveChanges();
+            }
+
+            else
+            {
+                OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+                Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == OrderBike.IdBike);
+                bike.Status= true;
+                //OrderBike.IdBike=b.IdBike;
+                //OrderBike.IdPay=b.IdPay;
+                OrderBike.Status = false;
+                OrderBike.Sum = b.Sum;
+                OrderBike.DateStart = DateTime.Now;
+                OrderBike.DateEnd = DateTime.Now;
+                context.SaveChanges();
+            }
+           
         }
     }
 }
