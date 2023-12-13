@@ -52,6 +52,7 @@ namespace Dal
                 Console.WriteLine(span);
 
 
+
                 double day = span.Days;
                 Console.WriteLine(day);
                 double minute = span.Minutes;

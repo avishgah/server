@@ -31,9 +31,9 @@ namespace Dal
                 for (int i = 0; i < count; i++)
                 {
 
-                    Bike bike=context.Bikes.FirstOrDefault(x=>x.IdStation == b.IdStation && x.Status==true);
-                    b.OrderBikes.Add(new OrderBike() { Status = false,IdBike=bike.Id });
-                    bike.Status = false;
+                    //Bike bike=context.Bikes.FirstOrDefault(x=>x.IdStation == b.IdStation && x.Status==true);
+                    b.OrderBikes.Add(new OrderBike() { Status = false});
+                  //  bike.Status = false;
                     context.SaveChanges();
                 }
                 context.Orders.Add(b);
@@ -89,18 +89,18 @@ namespace Dal
                  //
                 if(sum >= 30)
                 {
-                    List<OrderBike> lsto = null;
-                    lsto=this.context.OrderBikes.Where(x=>x.IdPay==item.Id).ToList();
-                    foreach(var item2 in lsto)
-                    {
-                        item2.Status = false;
-                        Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == item2.IdBike);
-                        bike.Status = true;
-                        context.SaveChanges();
-                    }
+                    //List<OrderBike> lsto = null;
+                    //lsto = this.context.OrderBikes.Where(x => x.IdPay == item.Id).ToList();
+                    //foreach (var item2 in lsto)
+                    //{
+                    //    item2.Status = false;
+                    //    Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == item2.IdBike);
+                    //    bike.Status = true;
+                    //    context.SaveChanges();
+                    //}
                     //delete order?
-                    item.IdCust = null;
-                    item.IdStation = null;
+                    //item.IdCust = null;
+                    //item.IdStation = null;
                 }
                 else
                 {

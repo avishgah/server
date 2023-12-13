@@ -1,4 +1,4 @@
-﻿using Dal;
+﻿using Bll;
 using Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +10,8 @@ namespace ServerWebApi.Controllers
     [ApiController]
     public class StationViewControllers : ControllerBase
     {
-        IStationViewDal stationBll;
-        public StationViewControllers(IStationViewDal bikeBll)
+        IStationViewBll stationBll;
+        public StationViewControllers(IStationViewBll bikeBll)
         {
             this.stationBll = bikeBll;
         }
