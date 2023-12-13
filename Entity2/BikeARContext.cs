@@ -17,6 +17,8 @@ public partial class BikeARContext : DbContext
 
     public virtual DbSet<Bike> Bikes { get; set; }
 
+    public virtual DbSet<Contact> Contacts { get; set; }
+
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<HistoryView> HistoryViews { get; set; }
@@ -43,9 +45,12 @@ public partial class BikeARContext : DbContext
 
             entity.HasIndex(e => e.IdStation, "IX_bike_idStation");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Battery).HasColumnName("battery");
-            entity.Property(e => e.Code).HasMaxLength(50);
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.Battery)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("battery");
             entity.Property(e => e.DateStart).HasColumnType("datetime");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -53,6 +58,29 @@ public partial class BikeARContext : DbContext
             entity.HasOne(d => d.IdStationNavigation).WithMany(p => p.Bikes)
                 .HasForeignKey(d => d.IdStation)
                 .HasConstraintName("FK_bike_stations");
+        });
+
+        modelBuilder.Entity<Contact>(entity =>
+        {
+            entity.ToTable("contact");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Cuption)
+                .HasMaxLength(100)
+                .HasColumnName("cuption");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .HasColumnName("email");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.Phon)
+                .HasMaxLength(10)
+                .HasColumnName("phon");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .HasColumnName("type");
         });
 
         modelBuilder.Entity<Customer>(entity =>

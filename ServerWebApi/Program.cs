@@ -34,6 +34,9 @@ builder.Services.AddScoped<IStationViewBll, StationViewBll>();
 builder.Services.AddScoped<IStationViewDal, StationViewDal>();
 
 
+builder.Services.AddScoped<IContactBll, ContactBll>();
+builder.Services.AddScoped<IContectDal, ContactDal>();
+
 builder.Services.AddDbContext<BikeARContext>();
 
 var config = new MapperConfiguration(m =>
