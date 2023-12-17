@@ -34,6 +34,17 @@ namespace Bll
            return this.OrderDal.AddOrder(order ,b.count);
         }
 
+        public bool IsExist(int b,int count)
+        {
+            //int id = b.Id;
+            //b.Id = 0;
+            //Station order = mapper.Map<Station>(b);
+            //order.DateOrder = DateTime.Now;
+            //func hoh many can take
+
+            return this.OrderDal.IsExist(b, count);
+        }
+
         public void DeleteOrder(int id)
         {
             this.OrderDal.DeleteOrder(id);

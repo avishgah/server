@@ -30,6 +30,14 @@ namespace ServerWebApi.Controllers
         {
             return orderBll.GetOrder(id);
         }
+        
+
+        [HttpGet("/api/order/isExist/")]
+        public ActionResult<bool> IsExist(int id ,int count)
+        {
+            return orderBll.IsExist(id,count);
+        }
+
 
 
         //????????

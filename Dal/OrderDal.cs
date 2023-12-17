@@ -41,6 +41,19 @@ namespace Dal
                 return b.Id;
             }
         }
+        public bool IsExist(int b, int count)
+        {
+            int countBIkesAreOrder = context.OrderBikes.Count(x => x.IdPayNavigation.IdStation == b && (x.Status == false && x.IdPayNavigation.DateOrder > DateTime.Now.AddMinutes(-30) || x.Status == true && x.DateEnd == null));
+            int countBikes = context.Bikes.Count(x => x.IdStation == b && !x.OrderBikes.Any(y => y.DateEnd != null));
+            if (countBikes - countBIkesAreOrder < count)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         public void DeleteOrder(int id)
         {

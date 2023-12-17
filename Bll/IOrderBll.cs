@@ -11,7 +11,7 @@ namespace Bll
     public interface IOrderBll
     {
         int AddOrder(OrderDto b);
-
+        bool IsExist(int b,int count);
         List<OrderDto> GetOrderList();
         List<OrderDto> GetOrderByIdCust(string id);
         List<OrderDto> GetOrderByIdCustNotDone(string id);
