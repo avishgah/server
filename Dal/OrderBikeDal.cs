@@ -94,8 +94,15 @@ namespace Dal
 
         public List<OrderBike> GetOrderBikeListByIdList(int id)
         {
-            return this.context.OrderBikes.Where(x => x.IdPay == id).ToList();
+            return this.context.OrderBikes.Where(x => x.IdPay == id && x.DateStart==null).ToList();
         }
+
+
+        public List<OrderBike> ReturnListBikeByIdOrder(int id)
+        {
+            return this.context.OrderBikes.Where(x => x.IdPay == id && x.DateEnd == null).ToList();
+        }
+
 
         public void GetBike(OrderBike b, int id)
         {
@@ -125,7 +132,11 @@ namespace Dal
 
             if(b.Sum == 0)
             {
+                Bike Bike = this.context.Bikes.FirstOrDefault(x => x.Status==true);
+                Console.WriteLine(Bike);
+                Bike.Status = false;
                 OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+                OrderBike.IdBike = Bike.Id;
                 //OrderBike.IdBike=b.IdBike;
                 //OrderBike.IdPay=b.IdPay;
                 OrderBike.Status = true;
@@ -142,10 +153,10 @@ namespace Dal
                 bike.Status= true;
                 //OrderBike.IdBike=b.IdBike;
                 //OrderBike.IdPay=b.IdPay;
-                OrderBike.Status = false;
+                //OrderBike.Status = false;
                 OrderBike.Sum = b.Sum;
-                OrderBike.DateStart = DateTime.Now;
                 OrderBike.DateEnd = DateTime.Now;
+                OrderBike.IdBike = null;
                 context.SaveChanges();
             }
            

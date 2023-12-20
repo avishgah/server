@@ -32,8 +32,8 @@ namespace Dal
                 {
 
                     //Bike bike=context.Bikes.FirstOrDefault(x=>x.IdStation == b.IdStation && x.Status==true);
-                    b.OrderBikes.Add(new OrderBike() { Status = false});
-                  //  bike.Status = false;
+                    b.OrderBikes.Add(new OrderBike() { Status = false,Sum=0 });
+                    //  bike.Status = false;
                     context.SaveChanges();
                 }
                 context.Orders.Add(b);
@@ -67,23 +67,44 @@ namespace Dal
             return this.context.Orders.FirstOrDefault(x => x.Id == id);
         }
 
-        public  List<Order> GetOrderByIdCust(string id)
+        public List<Order> GetOrderByIdCust(string id)
         {
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
             return this.context.Orders.Where(x => x.IdCust == cust.Id).ToList();
         }
+
+
+        //public List<Order> ReturnOrderByTzCust(string id)
+        //{
+        //    Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
+        //    List<Order> lst = new List<Order>();
+
+        //    lst= this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay!=true).ToList();
+
+        //    List<OrderBike> lst2 = new List<OrderBike>();
+        //    lst2=this.context.OrderBikes.Where(x=>x.IdPay==)
+
+        //    foreach(Order bike in lst)
+        //    {
+        //        if()
+        //    }
+
+        //}
+
+
         public List<Order> GetOrderByIdCustNotDone(string id)
         {
             double sum = 0;
-            List<Order> lst=new List<Order>();
-            List<Order> lst2=new List<Order>();
+            List<Order> lst = new List<Order>();
+            List<Order> lst2 = new List<Order>();
             Order o;
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
 
             lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay != true).ToList();
 
-           foreach(var item in lst)
+            foreach (var item in lst)
             {
+                sum = 0;
 
                 //calac minute
                 DateTime datestart = item.DateOrder.Value;
@@ -99,8 +120,8 @@ namespace Dal
                 Console.WriteLine(minute);
                 double houres = span.Hours + (day * 24);
                 sum += ((houres * 60) + minute);
-                 //
-                if(sum >= 30)
+                //
+                if (sum >= 30)
                 {
                     //List<OrderBike> lsto = null;
                     //lsto = this.context.OrderBikes.Where(x => x.IdPay == item.Id).ToList();
@@ -122,12 +143,43 @@ namespace Dal
 
             }
             return lst2;
-       
+
         }
 
         public List<Order> GetOrderList()
         {
             return context.Orders.ToList();
+        }
+
+        public double UpdateEndSumOfOrder(string id)
+        {
+            List<Order> lst = new List<Order>();
+            List<OrderBike> lst2 = new List<OrderBike>();
+            Order o;
+            Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
+            lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay != true).ToList();
+            double sum = 0;
+            double Endsum = 0;
+            foreach (Order b in lst)
+            {
+
+                lst2 = this.context.OrderBikes.Where(x => x.IdPay == b.Id).ToList();
+
+                foreach (OrderBike c in lst2)
+                {
+                    sum += (double)c.Sum;
+                }
+
+                b.EndSum = sum;
+                b.IsPay = true;
+                b.DatePay=DateTime.Now;
+                context.SaveChanges();
+                Endsum += sum;
+                sum = 0;
+            }
+
+            return Endsum;
+
         }
 
         public void UpdateOrder(Order b, int id)

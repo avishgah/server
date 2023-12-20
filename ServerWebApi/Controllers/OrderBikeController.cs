@@ -37,6 +37,13 @@ namespace ServerWebApi.Controllers
             return OrderBike.GetOrderBikeListByIdList(id);
         }
 
+        [HttpGet("/api/orderBike/ReturnListBikeByIdOrder/{id}")]
+        public List<OrderBikeDto> ReturnListBikeByIdOrder(int id)
+        {
+            return OrderBike.ReturnListBikeByIdOrder(id);
+        }
+
+
         [HttpGet("/api/orderBike/calcTime/{id}")]
         public TimeSpan CalcTime(int id)
         {

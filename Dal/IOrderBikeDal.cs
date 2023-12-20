@@ -14,6 +14,8 @@ namespace Dal
         List<OrderBike> GetOrderBikeList();
         List<OrderBike> GetOrderBikeListByIdList(int id);
 
+        List<OrderBike> ReturnListBikeByIdOrder(int id);
+
         void DeleteOrderBike(int id);
         void UpdateOrderBike(OrderBike b, int id);
         OrderBike GetOrderBike(int id);

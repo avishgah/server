@@ -17,6 +17,8 @@ namespace Bll
         List<OrderDto> GetOrderByIdCustNotDone(string id);
         void DeleteOrder(int id);
         void UpdateOrder(OrderDto b, int ID);
+
+        double UpdateEndSumOfOrder(string id);
         OrderDto GetOrder(int id);
     }
 }

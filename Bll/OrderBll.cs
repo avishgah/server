@@ -30,11 +30,11 @@ namespace Bll
             Order order = mapper.Map<Order>(b);
             //order.DateOrder = DateTime.Now;
             //func hoh many can take
-           
-           return this.OrderDal.AddOrder(order ,b.count);
+
+            return this.OrderDal.AddOrder(order, b.count);
         }
 
-        public bool IsExist(int b,int count)
+        public bool IsExist(int b, int count)
         {
             //int id = b.Id;
             //b.Id = 0;
@@ -49,7 +49,10 @@ namespace Bll
         {
             this.OrderDal.DeleteOrder(id);
         }
-
+        public double UpdateEndSumOfOrder(string id)
+        {
+            return this.OrderDal.UpdateEndSumOfOrder(id);
+        }
         public OrderDto GetOrder(int id)
         {
             return mapper.Map<OrderDto>(this.OrderDal.GetOrder(id));

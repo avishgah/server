@@ -51,6 +51,13 @@ namespace Bll
         {
             return mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeList());
         }
+
+
+        public List<OrderBikeDto> ReturnListBikeByIdOrder(int id)
+        {
+            return mapper.Map<List<OrderBikeDto>>(OrderBikeDal.ReturnListBikeByIdOrder(id));
+        }
+
         public List<OrderBikeDto> GetOrderBikeListByIdList(int id)
         {
             return mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeListByIdList(id));

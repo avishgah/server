@@ -38,7 +38,7 @@ namespace ServerWebApi.Controllers
 
 
         // GET api/<UserController1>/5
-        [HttpGet("{id},{password}")]
+        [HttpGet("/api/user/GetUserByTzAndPass/{id}/{password}")]
         public CustomerDto GetUserAndPassword(string id,string password)
         {
             return UserBll.GetUserAndPassword(id,password);

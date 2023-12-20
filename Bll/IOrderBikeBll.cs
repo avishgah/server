@@ -12,6 +12,7 @@ namespace Bll
     {
         void AddOrderBike(OrderBikeDto b);
         List<OrderBikeDto> GetOrderBikeListByIdList(int id);
+        List<OrderBikeDto> ReturnListBikeByIdOrder(int id);
         TimeSpan CalcTime(int id);
         double CalcSum(int id);
         List<OrderBikeDto> GetOrderBikeList();

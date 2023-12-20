@@ -30,12 +30,12 @@ namespace ServerWebApi.Controllers
         {
             return orderBll.GetOrder(id);
         }
-        
 
-        [HttpGet("/api/order/isExist/")]
-        public ActionResult<bool> IsExist(int id ,int count)
+
+        [HttpGet("/api/order/isExist/{id}/{count}")]
+        public ActionResult<bool> IsExist(int id, int count)
         {
-            return orderBll.IsExist(id,count);
+            return orderBll.IsExist(id, count);
         }
 
 
@@ -52,6 +52,12 @@ namespace ServerWebApi.Controllers
         {
             return orderBll.GetOrderByIdCustNotDone(id);
         }
+
+        [HttpGet("/api/order/updateSum/{id}")]
+        public double putEndSum(string id)
+        {
+            return orderBll.UpdateEndSumOfOrder(id);
+        }
         // POST api/<OrderController>
         [HttpPost]
         public void Post([FromBody] OrderDto b)
@@ -59,12 +65,15 @@ namespace ServerWebApi.Controllers
             orderBll.AddOrder(b);
         }
 
+
+
         // PUT api/<OrderController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] OrderDto b)
         {
             orderBll.UpdateOrder(b, id);
         }
+
 
         // DELETE api/<OrderController>/5
         [HttpDelete("{id}")]

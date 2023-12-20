@@ -18,6 +18,7 @@ namespace Dal
 
         public void AddUser(Customer b)
         {
+
             context.Customers.Add(b);
             context.SaveChanges();
         }
