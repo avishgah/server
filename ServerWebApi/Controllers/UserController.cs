@@ -36,18 +36,22 @@ namespace ServerWebApi.Controllers
             return UserBll.GetUserByTz(id);
         }
 
+        [HttpGet("/api/user/GetUserByMail/{mail}")]
+        public CustomerDto GetUserByMail(string mail)
+        {
+            return UserBll.GetUserByMail(mail);
+        }
+
 
         // GET api/<UserController1>/5
-        [HttpGet("/api/user/GetUserByTzAndPass/{id}/{password}")]
-        public CustomerDto GetUserAndPassword(string id,string password)
+        [HttpGet("GetUserByTzAndPass/{id}/{password}")]
+        public CustomerDto GetUserAndPassword(string id, string password)
         {
-            return UserBll.GetUserAndPassword(id,password);
+            return UserBll.GetUserAndPassword(id, password);
         }
 
         //post-הוספה
         // POST api/<UserController1>
-        [HttpPost]
-     
         [HttpPost]
         public void Post([FromBody] CustomerDto b)
         {
@@ -55,14 +59,52 @@ namespace ServerWebApi.Controllers
         }
         //put-עדכון
         // PUT api/<UserController1>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CustomerDto b)
+        //[HttpPut("UpdateUser/{id}")]
+        //public void Put(int id, [FromBody] CustomerDto b)
+        //{
+        //    UserBll.UpdateUser(b, id);
+        //}
+
+        //[HttpPut("ChangePassword")]
+        //public void Put([FromBody] CustomerDto id)
+        //{
+        //    UserBll.ChangePassword(id);
+        //}
+
+        [HttpPut("UpdateUser/{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] CustomerDto b)
         {
-            UserBll.UpdateUser(b, id);
+            try
+            {
+                UserBll.UpdateUser(b, id);
+                return Ok("User updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error updating user: {ex.Message}");
+            }
         }
+
+        [HttpPut("ChangePassword")]
+        public IActionResult ChangePassword([FromBody] CustomerDto id)
+        {
+            try
+            {
+                UserBll.ChangePassword(id);
+                return Ok("Password changed successfully");
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error updating user: {ex.Message}");
+            }
+        }
+
         //delete-מחיקה
         // DELETE api/<UserController1>/5
+
         [HttpDelete("{id}")]
+
         public void Delete(int id)
         {
             UserBll.DeleteUser(id);

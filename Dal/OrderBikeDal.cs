@@ -64,7 +64,19 @@ namespace Dal
             }
             return 0;
         }
+        public List<TimeSpan> GetListDateOfUse(string Id)
+        {
+            List<TimeSpan> lst= new List<TimeSpan>();
+            List<OrderBike> lstOrders = HistoryDrive(Id);
 
+
+            foreach (OrderBike o in lstOrders)
+            {
+                TimeSpan date = CalcTime(o.Id);
+                lst.Add(date);
+            }
+            return lst;
+        }
         public TimeSpan CalcTime(int id)
         {
             OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
@@ -101,6 +113,30 @@ namespace Dal
         public List<OrderBike> ReturnListBikeByIdOrder(int id)
         {
             return this.context.OrderBikes.Where(x => x.IdPay == id && x.DateEnd == null).ToList();
+        }
+
+        public List<OrderBike> HistoryDrive(string id)
+        {
+            Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);   
+            List<OrderBike> lst3 = new List<OrderBike>();
+            if (cust != null)
+            {
+                List<Order> lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay == true).ToList();
+                List<OrderBike> lst2 = this.context.OrderBikes.ToList();
+            
+
+                foreach (Order order in lst)
+                {
+                    foreach (OrderBike item in lst2)
+                    {
+                        if (item.IdPay == order.Id)
+                        {
+                            lst3.Add(item);
+                        }
+                    }
+                }
+            }
+            return lst3;
         }
 
 

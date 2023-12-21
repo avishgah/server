@@ -47,6 +47,10 @@ namespace Bll
         {
             return mapper.Map<CustomerDto>(this.UserDal.GetUser(id));
         }
+        public CustomerDto GetUserByMail(string mail)
+        {
+            return mapper.Map<CustomerDto>(this.UserDal.GetUserByMail(mail));
+        }
 
         public CustomerDto GetUserByTz(string id)
         {
@@ -63,6 +67,10 @@ namespace Bll
         {
             
             return mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
+        }
+        public void ChangePassword(CustomerDto user)
+        {
+            UserDal.ChangePassword(mapper.Map<Customer> (user));
         }
 
         public void UpdateUser(CustomerDto b, int ID)

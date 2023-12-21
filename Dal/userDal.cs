@@ -40,6 +40,14 @@ namespace Dal
             return this.context.Customers.FirstOrDefault(x => x.Tz == id);
         }
 
+    
+
+
+        public Customer GetUserByMail(string mail)
+        {
+            return this.context.Customers.FirstOrDefault(x => x.Mail == mail);
+        }
+
         public Customer GetUserAndPassword(string id, string pas)
         {
             return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password==pas);
@@ -49,7 +57,15 @@ namespace Dal
         {
             return context.Customers.ToList();
         }
-
+        public void ChangePassword(Customer user)
+        {
+            Customer cust = GetUserByMail(user.Mail);
+            if (cust != null)
+            {
+                cust.Password = user.Password;
+                context.SaveChanges();
+            }
+        }
         public void UpdateUser(Customer b, int id)
         {
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Id == id);

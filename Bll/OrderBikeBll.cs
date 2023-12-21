@@ -63,6 +63,15 @@ namespace Bll
             return mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeListByIdList(id));
         }
 
+       public List<OrderBikeDto> HistoryDrive(string id)
+        {
+            return mapper.Map<List<OrderBikeDto>>(OrderBikeDal.HistoryDrive(id));
+        }
+        public List<TimeSpan> GetListDateOfUse(string Id)
+        {
+            return mapper.Map<List<TimeSpan>>(OrderBikeDal.GetListDateOfUse(Id));
+        }
+
         public void UpdateOrderBike(OrderBikeDto b, int ID)
         {
 

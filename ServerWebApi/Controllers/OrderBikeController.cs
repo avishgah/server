@@ -30,11 +30,24 @@ namespace ServerWebApi.Controllers
         {
             return OrderBike.GetOrderBike(id);
         }
+        // GET api/<BikeController1>/5
+        [HttpGet("/api/orderBike/HistoryDrive/{id}")]
+        public List<OrderBikeDto> Get(string id)
+        {
+            return OrderBike.HistoryDrive(id);
+        }
 
         [HttpGet("/api/orderBike/GetOrderByIdOrder/{id}")]
         public List<OrderBikeDto> GetOrders(int id)
         {
             return OrderBike.GetOrderBikeListByIdList(id);
+        }
+
+
+        [HttpGet("/api/orderBike/GetListDateOfUse/{id}")]
+        public List<TimeSpan> GetListDateOfUse(string id)
+        {
+            return OrderBike.GetListDateOfUse(id);
         }
 
         [HttpGet("/api/orderBike/ReturnListBikeByIdOrder/{id}")]
