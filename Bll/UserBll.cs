@@ -24,18 +24,22 @@ namespace Bll
             mapper = m;
         }
         List<CustomerDto> CustomerList;
-        public string AddUser(CustomerDto b)
+
+        public CustomerDto AddUser(CustomerDto b)
         {
-           CustomerList=mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
-            for(var i=0; i<CustomerList.Count; i++)
+            var userList = mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
+
+            // Check if Tz or Mail already exists in the user list
+            foreach (var customer in userList)
             {
-                if (CustomerList[i].Tz == b.Tz || CustomerList[i].Mail == b.Mail)
+                if (customer.Tz == b.Tz || customer.Mail == b.Mail)
                 {
-                    return "Existing user";
+                    return null; // Indicates Tz or Mail already exists, preventing addition
                 }
             }
-            this.UserDal.AddUser(mapper.Map<Customer>(b));
-            return "good";
+
+            // If Tz and Mail are unique, proceed to add the user
+            return mapper.Map<CustomerDto>(this.UserDal.AddUser(mapper.Map<Customer>(b)));
         }
 
         public void DeleteUser(int id)

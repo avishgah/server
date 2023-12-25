@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Bll;
 using Dto;
+using Newtonsoft.Json;
+using Dal;
+using Entity2;
 
 namespace ServerWebApi.Controllers
 {
@@ -53,10 +56,62 @@ namespace ServerWebApi.Controllers
         //post-הוספה
         // POST api/<UserController1>
         [HttpPost]
-        public void Post([FromBody] CustomerDto b)
+        public CustomerDto Post([FromBody] object b)
         {
-            UserBll.AddUser(b);
+            try
+            {
+                // המרת ה-object לסוג UserData
+                var userData = JsonConvert.DeserializeObject<Customer>(b.ToString());
+
+                // כעת תוכל לגשת לערכים באופן קונקרטי
+                string name = userData.Name;
+                string email = userData.Mail;
+                string address = userData.Address;
+                string password = userData.Password;
+                string toun = userData.Toun;
+                string phon = userData.Phon;
+                string tz = userData.Tz;
+                DateTime dateBirth = userData.DateBirth != null ? (DateTime)userData.DateBirth : DateTime.Now;
+                //   string fileContent = File.ReadAllText(userData.Pic);
+
+                //string pic = ((string)userData.Pic);
+               // string pic = " ";
+
+                bool isManager = false;
+                bool status = true;
+                bool readTerms = true;
+
+                CustomerDto dto = new CustomerDto()
+                {
+                    Mail = email,
+                    Name = name,
+                    Address = address,
+                    Password = password,
+                    Toun = toun,
+                    Phon = phon,
+                    Tz = tz,
+                    DateBirth = dateBirth,
+                    Pic = "",
+                    IsManager = isManager,
+                    Status = status,
+                    ReadTerms = readTerms,
+
+                };
+
+
+                return UserBll.AddUser(dto);
+
+                  
+            }
+            catch (JsonException ex)
+            {
+                return null;
+            }
+            //UserBll.AddUser(b);
         }
+
+
+
         //put-עדכון
         // PUT api/<UserController1>/5
         //[HttpPut("UpdateUser/{id}")]

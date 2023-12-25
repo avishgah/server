@@ -5,7 +5,7 @@ namespace Bll
     public interface IuserBll
     {
 
-        string AddUser(CustomerDto b);
+        CustomerDto AddUser(CustomerDto b);
         CustomerDto GetUserByTz(string id);
         List<CustomerDto> GetUserList();
         CustomerDto GetUserAndPassword(string id, string pas);

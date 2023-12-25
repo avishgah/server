@@ -9,7 +9,7 @@ namespace Dal
 {
     public interface IUserDal
     {
-        void AddUser(Customer b);
+        Customer AddUser(Customer b);
 
         List<Customer> GetUserList();
         Customer GetUserAndPassword(string id, string pas);

@@ -16,11 +16,11 @@ namespace Dal
             context = con;
         }
 
-        public void AddUser(Customer b)
+        public Customer AddUser(Customer b)
         {
-
-            context.Customers.Add(b);
+            var addedCustomer = context.Customers.Add(b);
             context.SaveChanges();
+            return addedCustomer.Entity;
         }
 
         public void DeleteUser(int id)
@@ -40,7 +40,7 @@ namespace Dal
             return this.context.Customers.FirstOrDefault(x => x.Tz == id);
         }
 
-    
+
 
 
         public Customer GetUserByMail(string mail)
@@ -50,7 +50,7 @@ namespace Dal
 
         public Customer GetUserAndPassword(string id, string pas)
         {
-            return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password==pas);
+            return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password == pas);
         }
 
         public List<Customer> GetUserList()
@@ -75,7 +75,7 @@ namespace Dal
                 cust.Name = b.Name;
                 cust.Status = b.Status;
                 cust.IsManager = b.IsManager;
-               // cust.Orders = b.Orders;
+                // cust.Orders = b.Orders;
                 cust.Address = b.Address;
                 cust.DateBirth = b.DateBirth;
                 cust.Mail = b.Mail;
