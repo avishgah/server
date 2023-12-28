@@ -39,7 +39,7 @@ namespace Dal
         {
             //דמי שחרור
             double sum = 5;
-            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status==true);
             if (o != null)
             {
                 o.DateEnd = DateTime.Now;
@@ -79,7 +79,7 @@ namespace Dal
         }
         public TimeSpan CalcTime(int id)
         {
-            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status==true);
             if (o != null)
             {
                 o.DateEnd = DateTime.Now;
@@ -186,6 +186,7 @@ namespace Dal
             {
                 OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
                 Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == OrderBike.IdBike);
+                bike.IdStation = b.IdBike;
                 bike.Status= true;
                 //OrderBike.IdBike=b.IdBike;
                 //OrderBike.IdPay=b.IdPay;

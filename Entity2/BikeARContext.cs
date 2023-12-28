@@ -109,7 +109,7 @@ public partial class BikeARContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("phon");
             entity.Property(e => e.Pic)
-                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasColumnName("pic");
             entity.Property(e => e.ReadTerms).HasColumnName("readTerms");
             entity.Property(e => e.Status).HasColumnName("status");

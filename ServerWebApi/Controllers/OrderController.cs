@@ -58,10 +58,12 @@ namespace ServerWebApi.Controllers
         {
             return orderBll.UpdateEndSumOfOrder(id);
         }
+
         // POST api/<OrderController>
         [HttpPost]
         public void Post([FromBody] OrderDto b)
         {
+
             orderBll.AddOrder(b);
         }
 

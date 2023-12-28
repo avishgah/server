@@ -69,24 +69,34 @@ namespace Dal
         public void UpdateUser(Customer b, int id)
         {
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Id == id);
-            if (cust != null)
-            {
-                cust.Tz = b.Tz;
-                cust.Name = b.Name;
-                cust.Status = b.Status;
-                cust.IsManager = b.IsManager;
-                // cust.Orders = b.Orders;
-                cust.Address = b.Address;
-                cust.DateBirth = b.DateBirth;
-                cust.Mail = b.Mail;
-                //cust.Opinion = b.Opinion;
-                cust.Toun = b.Toun;
-                cust.Pic = b.Pic;
-                cust.Phon = b.Phon;
-                cust.ReadTerms = b.ReadTerms;
 
+            if (b.Name == "change pic")
+            {
+                cust.Pic = b.Pic;
                 context.SaveChanges();
             }
+            else
+            {
+                if (cust != null)
+                {
+                    cust.Tz = b.Tz;
+                    cust.Name = b.Name;
+                    cust.Status = b.Status;
+                    cust.IsManager = b.IsManager;
+                    // cust.Orders = b.Orders;
+                    cust.Address = b.Address;
+                    cust.DateBirth = b.DateBirth;
+                    cust.Mail = b.Mail;
+                    //cust.Opinion = b.Opinion;
+                    cust.Toun = b.Toun;
+                    cust.Pic = b.Pic;
+                    cust.Phon = b.Phon;
+                    cust.ReadTerms = b.ReadTerms;
+
+                    context.SaveChanges();
+                }
+            }
+
         }
     }
 }

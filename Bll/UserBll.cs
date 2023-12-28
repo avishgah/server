@@ -34,7 +34,7 @@ namespace Bll
             {
                 if (customer.Tz == b.Tz || customer.Mail == b.Mail)
                 {
-                    return null; // Indicates Tz or Mail already exists, preventing addition
+                    return null;
                 }
             }
 

@@ -30,12 +30,26 @@ namespace Dal
 
                 for (int i = 0; i < count; i++)
                 {
+                    if (b.Code == "station")
+                    {
+                        Bike Bike = this.context.Bikes.FirstOrDefault(x => x.Status == true);
+                        Console.WriteLine(Bike);
+                        Bike.Status = false;
+                        b.OrderBikes.Add(new OrderBike() { Status = false, Sum = 0,DateStart=DateTime.Now,IdBike=Bike.Id });
 
+                    }
+                    if(b.Code == "web")
+                    {
+                        b.OrderBikes.Add(new OrderBike() { Status = false, Sum = 0 });
+                    }
                     //Bike bike=context.Bikes.FirstOrDefault(x=>x.IdStation == b.IdStation && x.Status==true);
-                    b.OrderBikes.Add(new OrderBike() { Status = false,Sum=0 });
                     //  bike.Status = false;
                     context.SaveChanges();
                 }
+
+                b.EndSum = 0;
+                b.IsPay = false;
+                b.DateOrder= DateTime.Now;
                 context.Orders.Add(b);
                 context.SaveChanges();
                 return b.Id;
@@ -158,6 +172,7 @@ namespace Dal
             Order o;
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
             lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay != true).ToList();
+           
             double sum = 0;
             double Endsum = 0;
             foreach (Order b in lst)
@@ -168,6 +183,8 @@ namespace Dal
                 foreach (OrderBike c in lst2)
                 {
                     sum += (double)c.Sum;
+                    c.Status = false;
+                    context.SaveChanges();
                 }
 
                 b.EndSum = sum;

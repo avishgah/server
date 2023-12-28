@@ -127,31 +127,48 @@ namespace ServerWebApi.Controllers
         //}
 
         [HttpPut("UpdateUser/{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] CustomerDto b)
+        public void UpdateUser(int id, [FromBody] object b)
         {
+
             try
             {
-                UserBll.UpdateUser(b, id);
-                return Ok("User updated successfully");
+                // המרת ה-object לסוג UserData
+                var userData = JsonConvert.DeserializeObject<Customer>(b.ToString());
+
+          
+                string pic=userData.Pic;
+                string name=userData.Name;
+
+                CustomerDto dto = new CustomerDto()
+                {
+                    Pic = pic,
+                    Name = name,
+                };
+
+
+                UserBll.UpdateUser(dto, id);
+
+
             }
-            catch (Exception ex)
+            catch (JsonException ex)
             {
-                return StatusCode(500, $"Error updating user: {ex.Message}");
+                 Console.WriteLine(ex.Message);
             }
+
         }
 
         [HttpPut("ChangePassword")]
-        public IActionResult ChangePassword([FromBody] CustomerDto id)
+        public void ChangePassword([FromBody] CustomerDto id)
         {
             try
             {
                 UserBll.ChangePassword(id);
-                return Ok("Password changed successfully");
+
             }
 
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error updating user: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
