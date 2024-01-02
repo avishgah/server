@@ -55,6 +55,12 @@ namespace ServerWebApi.Controllers
 
         //post-הוספה
         // POST api/<UserController1>
+        [HttpPost ("/api/User/Connect/")]
+        public CustomerDto Post([FromBody] Connect c)
+        {
+            return UserBll.GetUserAndPassword(c.Id, c.Password);
+        }
+
         [HttpPost]
         public CustomerDto Post([FromBody] object b)
         {

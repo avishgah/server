@@ -14,7 +14,7 @@ namespace Bll
         bool IsExist(int b,int count);
         List<OrderDto> GetOrderList();
         List<OrderDto> GetOrderByIdCust(string id);
-        List<OrderDto> GetOrderByIdCustNotDone(string id);
+        List<OrderDto> GetOrderByIdCustNotDone(int id, int stationId);
         void DeleteOrder(int id);
         void UpdateOrder(OrderDto b, int ID);
 

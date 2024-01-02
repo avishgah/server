@@ -67,9 +67,9 @@ namespace Bll
         {
             return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCust(id));
         }
-        public List<OrderDto> GetOrderByIdCustNotDone(string id)
+        public List<OrderDto> GetOrderByIdCustNotDone(int id, int stationId)
         {
-            return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCustNotDone(id));
+            return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCustNotDone(id, stationId));
         }
 
         public void UpdateOrder(OrderDto b, int ID)

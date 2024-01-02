@@ -12,7 +12,7 @@ namespace Dal
         List<Order> GetOrderList();
         List<Order> GetOrderByIdCust(string id);
         double UpdateEndSumOfOrder(string id);
-        List<Order> GetOrderByIdCustNotDone(string id);
+        List<Order> GetOrderByIdCustNotDone(int id, int stationId);
 
         bool IsExist(int b, int count);
         void DeleteOrder(int id);

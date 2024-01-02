@@ -72,10 +72,22 @@ namespace Bll
             return mapper.Map<List<TimeSpan>>(OrderBikeDal.GetListDateOfUse(Id));
         }
 
-        public void UpdateOrderBike(OrderBikeDto b, int ID)
+        public OrderBikeDto UpdateOrderBike(OrderBikeDto b, int id)
         {
 
-            OrderBikeDal.UpdateOrderBike(mapper.Map<OrderBike>(b), ID);
+
+            // Map OrderBikeDto to OrderBike
+            OrderBike orderBikeToUpdate = mapper.Map<OrderBike>(b);
+
+            // Set the ID of the orderBikeToUpdate
+            orderBikeToUpdate.Id = id;
+
+            // Update the OrderBike entity in the data access layer
+            OrderBike updatedOrderBike = this.OrderBikeDal.UpdateOrderBike(orderBikeToUpdate,id);
+
+            // Map the updated OrderBike back to OrderBikeDto and return
+            return mapper.Map<OrderBikeDto>(updatedOrderBike);
+
         }
     }
 }

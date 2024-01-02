@@ -37,8 +37,8 @@ namespace ServerWebApi.Controllers
             return OrderBike.HistoryDrive(id);
         }
 
-        [HttpGet("/api/orderBike/GetOrderByIdOrder/{id}")]
-        public List<OrderBikeDto> GetOrders(int id)
+        [HttpGet("/api/orderBike/GetOrderBikeListByIdList/{id}")]
+        public List<OrderBikeDto> GetOrderBikeListByIdList(int id)
         {
             return OrderBike.GetOrderBikeListByIdList(id);
         }
@@ -78,9 +78,9 @@ namespace ServerWebApi.Controllers
         // PUT api/<BikeController1>/5
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] OrderBikeDto b)
+        public OrderBikeDto Put(int id, [FromBody] OrderBikeDto b)
         {
-            OrderBike.UpdateOrderBike(b, id);
+           return OrderBike.UpdateOrderBike(b, id);
         }
         //delete-מחיקה
         // DELETE api/<BikeController1>/5

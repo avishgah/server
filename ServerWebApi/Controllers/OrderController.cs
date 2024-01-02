@@ -47,10 +47,10 @@ namespace ServerWebApi.Controllers
             return orderBll.GetOrderByIdCust(id);
         }
         //????????
-        [HttpGet("/api/order/GetOrderByIdCustNotDone/{id}")]
-        public List<OrderDto> GetOrderByIdCustNotDone(string id)
+        [HttpGet("/api/order/GetOrderByIdCustNotDone/{id}/{stationId}")]
+        public List<OrderDto> GetOrderByIdCustNotDone(int id, int stationId)
         {
-            return orderBll.GetOrderByIdCustNotDone(id);
+            return orderBll.GetOrderByIdCustNotDone(id, stationId);
         }
 
         [HttpGet("/api/order/updateSum/{id}")]

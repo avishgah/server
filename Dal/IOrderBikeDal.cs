@@ -21,7 +21,7 @@ namespace Dal
         List<TimeSpan> GetListDateOfUse(string Id);
 
         void DeleteOrderBike(int id);
-        void UpdateOrderBike(OrderBike b, int id);
+        OrderBike UpdateOrderBike(OrderBike b, int id);
         OrderBike GetOrderBike(int id);
     }
 }

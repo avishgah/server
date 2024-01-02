@@ -20,7 +20,7 @@ namespace Bll
         double CalcSum(int id);
         List<OrderBikeDto> GetOrderBikeList();
         void DeleteOrderBike(int id);
-        void UpdateOrderBike(OrderBikeDto b, int ID);
+        OrderBikeDto UpdateOrderBike(OrderBikeDto b, int ID);
         OrderBikeDto GetOrderBike(int id);
     }
 }

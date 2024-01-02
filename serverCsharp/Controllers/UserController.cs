@@ -36,6 +36,15 @@ namespace serverCsharp.Controllers
         {
             UserBll.AddUser(b);
         }
+
+        [HttpPost]
+        public void Post([FromBody] Connect b)
+        {
+            UserBll.AddUser(b);
+        }
+
+
+
         //put-עדכון
         // PUT api/<UserController1>/5
         [HttpPut("{id}")]

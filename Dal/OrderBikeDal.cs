@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entity2;
+using Microsoft.EntityFrameworkCore;
+
 namespace Dal
 {
     public class OrderBikeDal : IOrderBikeDal
     {
         private readonly BikeARContext context;
-        
+
         public OrderBikeDal(BikeARContext con)
         {
             context = con;
@@ -39,7 +41,7 @@ namespace Dal
         {
             //דמי שחרור
             double sum = 5;
-            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status==true);
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status == true);
             if (o != null)
             {
                 o.DateEnd = DateTime.Now;
@@ -66,7 +68,7 @@ namespace Dal
         }
         public List<TimeSpan> GetListDateOfUse(string Id)
         {
-            List<TimeSpan> lst= new List<TimeSpan>();
+            List<TimeSpan> lst = new List<TimeSpan>();
             List<OrderBike> lstOrders = HistoryDrive(Id);
 
 
@@ -79,7 +81,7 @@ namespace Dal
         }
         public TimeSpan CalcTime(int id)
         {
-            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status==true);
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status == true);
             if (o != null)
             {
                 o.DateEnd = DateTime.Now;
@@ -106,7 +108,9 @@ namespace Dal
 
         public List<OrderBike> GetOrderBikeListByIdList(int id)
         {
-            return this.context.OrderBikes.Where(x => x.IdPay == id && x.DateStart==null).ToList();
+            List<OrderBike> lst = new List<OrderBike>();
+            lst = this.context.OrderBikes.Where(x => x.IdPay == id && x.DateStart == null).ToList();
+            return lst;
         }
 
 
@@ -117,13 +121,13 @@ namespace Dal
 
         public List<OrderBike> HistoryDrive(string id)
         {
-            Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);   
+            Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
             List<OrderBike> lst3 = new List<OrderBike>();
             if (cust != null)
             {
                 List<Order> lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay == true).ToList();
                 List<OrderBike> lst2 = this.context.OrderBikes.ToList();
-            
+
 
                 foreach (Order order in lst)
                 {
@@ -147,39 +151,40 @@ namespace Dal
             {
                 OrderBike.IdBike = b.IdBike;
                 OrderBike.Status = true;
-                OrderBike.DateStart =DateTime.Now;
+                OrderBike.DateStart = DateTime.Now;
                 context.SaveChanges();
             }
         }
 
-        public void SetBike( int id)
+        public void SetBike(int id)
         {
             OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
             if (OrderBike != null)
             {
-               // OrderBike.Sum = b.Sum;
-                OrderBike.DateEnd =DateTime.Now;
+                // OrderBike.Sum = b.Sum;
+                OrderBike.DateEnd = DateTime.Now;
                 context.SaveChanges();
             }
         }
 
-        public void UpdateOrderBike(OrderBike b, int id)
+        public OrderBike UpdateOrderBike(OrderBike b, int id)
         {
 
-            if(b.Sum == 0)
+            if (b.Sum == 0 || b.Sum == null)
             {
-                Bike Bike = this.context.Bikes.FirstOrDefault(x => x.Status==true);
+                Bike Bike = this.context.Bikes.FirstOrDefault(x => x.Status == true);
                 Console.WriteLine(Bike);
-                Bike.Status = false;
-                OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
-                OrderBike.IdBike = Bike.Id;
-                //OrderBike.IdBike=b.IdBike;
-                //OrderBike.IdPay=b.IdPay;
-                OrderBike.Status = true;
-                //OrderBike.Sum=b.Sum;
-                OrderBike.DateStart = DateTime.Now;
-                //OrderBike.DateEnd=b.DateEnd;
-                context.SaveChanges();
+                Order order = this.context.Orders.Include(x=>x.OrderBikes).FirstOrDefault(x => x.Id == id);
+                if (order != null)
+                {
+                   OrderBike OrderBike= order.OrderBikes.FirstOrDefault(x => x.DateStart == null);
+                    OrderBike.IdBike = Bike.Id;
+                    OrderBike.Status = true;
+                    Bike.Status = false;
+                    OrderBike.DateStart = DateTime.Now;
+                    context.SaveChanges();
+                    return OrderBike;
+                }
             }
 
             else
@@ -187,7 +192,7 @@ namespace Dal
                 OrderBike OrderBike = this.context.OrderBikes.FirstOrDefault(x => x.Id == id);
                 Bike bike = this.context.Bikes.FirstOrDefault(x => x.Id == OrderBike.IdBike);
                 bike.IdStation = b.IdBike;
-                bike.Status= true;
+                bike.Status = true;
                 //OrderBike.IdBike=b.IdBike;
                 //OrderBike.IdPay=b.IdPay;
                 //OrderBike.Status = false;
@@ -195,8 +200,11 @@ namespace Dal
                 OrderBike.DateEnd = DateTime.Now;
                 OrderBike.IdBike = null;
                 context.SaveChanges();
+                return OrderBike;
+
             }
-           
+            return null;
+
         }
     }
 }
