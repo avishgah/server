@@ -65,7 +65,10 @@ namespace Bll
         {
            return mapper.Map<CustomerDto>(UserDal.GetUserAndPassword(id,pas));
         }
-
+        public CustomerDto GetMailAndPassword(string id, string mail)
+        {
+            return mapper.Map<CustomerDto>(UserDal.GetMailAndPassword(id, mail));
+        }
 
         public List<CustomerDto> GetUserList()
         {

@@ -53,6 +53,11 @@ namespace Dal
             return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password == pas);
         }
 
+        public Customer GetMailAndPassword(string pass, string mail)
+        {
+            return this.context.Customers.FirstOrDefault(x => x.Password == pass && x.Mail == mail);
+        }
+
         public List<Customer> GetUserList()
         {
             return context.Customers.ToList();

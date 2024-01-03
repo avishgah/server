@@ -13,6 +13,8 @@ namespace Dal
 
         List<Customer> GetUserList();
         Customer GetUserAndPassword(string id, string pas);
+
+        Customer GetMailAndPassword(string pass, string mail);
         Customer GetUserByMail(string mail);
         void ChangePassword(Customer user);
         void DeleteUser(int id);

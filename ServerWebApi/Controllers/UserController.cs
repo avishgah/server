@@ -5,6 +5,7 @@ using Dto;
 using Newtonsoft.Json;
 using Dal;
 using Entity2;
+using System.Net;
 
 namespace ServerWebApi.Controllers
 {
@@ -55,12 +56,18 @@ namespace ServerWebApi.Controllers
 
         //post-הוספה
         // POST api/<UserController1>
-        [HttpPost ("/api/User/Connect/")]
+        [HttpPost("/api/User/Connect/")]
         public CustomerDto Post([FromBody] Connect c)
         {
             return UserBll.GetUserAndPassword(c.Id, c.Password);
         }
+        [HttpPost("/api/User/ConnectMail/")]
+        public CustomerDto GetMailAndPassword([FromBody] MailAndPassword dto)
+        {
 
+            return UserBll.GetMailAndPassword(dto.Password, dto.Mail);
+
+        }
         [HttpPost]
         public CustomerDto Post([FromBody] object b)
         {
@@ -81,7 +88,7 @@ namespace ServerWebApi.Controllers
                 //   string fileContent = File.ReadAllText(userData.Pic);
 
                 //string pic = ((string)userData.Pic);
-               // string pic = " ";
+                // string pic = " ";
 
                 bool isManager = false;
                 bool status = true;
@@ -107,7 +114,7 @@ namespace ServerWebApi.Controllers
 
                 return UserBll.AddUser(dto);
 
-                  
+
             }
             catch (JsonException ex)
             {
@@ -141,9 +148,9 @@ namespace ServerWebApi.Controllers
                 // המרת ה-object לסוג UserData
                 var userData = JsonConvert.DeserializeObject<Customer>(b.ToString());
 
-          
-                string pic=userData.Pic;
-                string name=userData.Name;
+
+                string pic = userData.Pic;
+                string name = userData.Name;
 
                 CustomerDto dto = new CustomerDto()
                 {
@@ -158,17 +165,23 @@ namespace ServerWebApi.Controllers
             }
             catch (JsonException ex)
             {
-                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
             }
 
         }
 
         [HttpPut("ChangePassword")]
-        public void ChangePassword([FromBody] CustomerDto id)
+        public void ChangePassword([FromBody] MailAndPassword k)
         {
+            CustomerDto dto = new CustomerDto()
+            {
+                Mail = k.Mail,
+                Password = k.Password,
+            };
+
             try
             {
-                UserBll.ChangePassword(id);
+                UserBll.ChangePassword(dto);
 
             }
 

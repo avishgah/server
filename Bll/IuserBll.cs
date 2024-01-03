@@ -9,6 +9,7 @@ namespace Bll
         CustomerDto GetUserByTz(string id);
         List<CustomerDto> GetUserList();
         CustomerDto GetUserAndPassword(string id, string pas);
+        CustomerDto GetMailAndPassword(string id, string mail);
         CustomerDto GetUserByMail(string mail);
         void ChangePassword(CustomerDto user);
         void DeleteUser(int id);
