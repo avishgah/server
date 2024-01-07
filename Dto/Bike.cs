@@ -9,7 +9,7 @@ public partial class BikeDto
     //comenet for test github
     public int Id { get; set; }
 
-    public string? Code { get; set; }
+    public int? Code { get; set; }
 
     public int? Battery { get; set; }
 

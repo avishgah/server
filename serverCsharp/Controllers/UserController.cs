@@ -40,7 +40,8 @@ namespace serverCsharp.Controllers
         [HttpPost]
         public void Post([FromBody] Connect b)
         {
-            UserBll.AddUser(b);
+            CustomerDto c=new CustomerDto() {Password=b.Password , Tz=b.Id};
+            UserBll.AddUser(c);
         }
 
 

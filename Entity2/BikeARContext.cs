@@ -48,9 +48,8 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("id");
-            entity.Property(e => e.Battery)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("battery");
+            entity.Property(e => e.Battery).HasColumnName("battery");
+            entity.Property(e => e.Code).ValueGeneratedOnAdd();
             entity.Property(e => e.DateStart).HasColumnType("datetime");
             entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.Status).HasColumnName("status");

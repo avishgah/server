@@ -34,9 +34,7 @@ namespace ServerWebApi.Controllers
         [HttpPost]
         public void Post([FromBody] BikeDto b)
         {
-            b.DateStart = DateTime.Now;
-            b.Battery = 100;
-            b.Code = "bike" + b.Code;
+          
             bikeBll.AddBike(b);
         }
         //put-עדכון

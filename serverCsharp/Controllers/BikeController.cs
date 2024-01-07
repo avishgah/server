@@ -34,9 +34,6 @@ namespace serverCsharp.Controllers
         [HttpPost]
         public void Post([FromBody] BikeDto b)
         {
-            b.DateStart = DateTime.Now;
-            b.Battery = 100;
-            b.Code = "bike" + b.Id;
             bikeBll.AddBike(b);
         }
         //put-עדכון
