@@ -5,9 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
 using Dal;
 using Entity2;
+using GemBox.Spreadsheet;
+using MailKit.Net.Smtp;
+using MimeKit;
+
 
 
 namespace Bll
@@ -84,5 +87,31 @@ namespace Bll
         {
             UserDal.UpdateUser(mapper.Map<Customer>(b), ID);
         }
+
+
+        public void SendEmailOnly(string to, string name, string subject, string text)
+        {
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress("Pedal", "pedalsite@gmail.com"));
+            email.To.Add(new MailboxAddress(name, to));
+
+            email.Subject = subject;
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = text
+            };
+
+
+            using (var s = new SmtpClient())
+            {
+                s.CheckCertificateRevocation = false;
+                s.Connect("smtp.gmail.com", 587, false);
+                s.Authenticate("pedalsite@gmail.com", "rssvdyxcigstnard");
+                s.Send(email);
+                s.Disconnect(true);
+            }
+        }
+
+
     }
 }

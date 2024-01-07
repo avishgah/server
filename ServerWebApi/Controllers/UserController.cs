@@ -68,6 +68,15 @@ namespace ServerWebApi.Controllers
             return UserBll.GetMailAndPassword(dto.Password, dto.Mail);
 
         }
+
+        [HttpPost("/api/User/SendEmailOnly/")]
+        public void SendEmailOnly(string to, string name, string subject, string text)
+        {
+
+             UserBll.SendEmailOnly( to,  name,  subject,  text);
+        }
+
+
         [HttpPost]
         public CustomerDto Post([FromBody] object b)
         {
