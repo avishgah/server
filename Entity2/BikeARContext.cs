@@ -31,6 +31,8 @@ public partial class BikeARContext : DbContext
 
     public virtual DbSet<Station> Stations { get; set; }
 
+    public virtual DbSet<StationBikeView> StationBikeViews { get; set; }
+
     public virtual DbSet<StationView> StationViews { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -254,6 +256,25 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Lat).HasColumnName("lat");
             entity.Property(e => e.Lng).HasColumnName("lng");
+            entity.Property(e => e.Location)
+                .HasMaxLength(50)
+                .HasColumnName("location");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<StationBikeView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("StationBikeView");
+
+            entity.Property(e => e.Battery).HasColumnName("battery");
+            entity.Property(e => e.DateStart).HasColumnType("datetime");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.Location)
                 .HasMaxLength(50)
                 .HasColumnName("location");

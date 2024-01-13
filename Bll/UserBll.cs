@@ -64,9 +64,9 @@ namespace Bll
             return mapper.Map<CustomerDto>(this.UserDal.GetUserByTz(id));
         }
 
-        public CustomerDto GetUserAndPassword(string id,string pas)
+        public CustomerDto GetUserAndPassword(string id, string pas)
         {
-           return mapper.Map<CustomerDto>(UserDal.GetUserAndPassword(id,pas));
+            return mapper.Map<CustomerDto>(UserDal.GetUserAndPassword(id, pas));
         }
         public CustomerDto GetMailAndPassword(string id, string mail)
         {
@@ -75,12 +75,12 @@ namespace Bll
 
         public List<CustomerDto> GetUserList()
         {
-            
+
             return mapper.Map<List<CustomerDto>>(UserDal.GetUserList());
         }
         public void ChangePassword(CustomerDto user)
         {
-            UserDal.ChangePassword(mapper.Map<Customer> (user));
+            UserDal.ChangePassword(mapper.Map<Customer>(user));
         }
 
         public void UpdateUser(CustomerDto b, int ID)
@@ -98,8 +98,12 @@ namespace Bll
             email.Subject = subject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
-                Text = text
-            };
+                Text = $"שלום {name}," +
+              $"\n" + // Adding a new line for better readability
+              $"\tPEDAL אנו מודים לך שבחרת ברשת " +
+              $"\n" + // Adding a new line for better readability
+              $"\tבמקרה של תקלה או שגיאה פנו אל שירות הלקוחות *2670"
+        };
 
 
             using (var s = new SmtpClient())

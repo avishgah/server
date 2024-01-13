@@ -69,7 +69,7 @@ namespace ServerWebApi.Controllers
 
         }
 
-        [HttpPost("/api/User/SendEmailOnly/")]
+        [HttpPost("/api/User/SendEmailOnly/{to}/{name}/{subject}/{text}")]
         public void SendEmailOnly(string to, string name, string subject, string text)
         {
 

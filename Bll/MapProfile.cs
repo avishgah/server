@@ -44,6 +44,10 @@ namespace Bll
 
             CreateMap<Contact, ContactDto>();
             CreateMap<ContactDto, Contact>();
+
+
+            CreateMap<StationBikeView, StationBikeViewDto>();
+            CreateMap<StationBikeViewDto, StationBikeView>();
         }
     }
 }
