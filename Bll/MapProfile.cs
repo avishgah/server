@@ -48,6 +48,11 @@ namespace Bll
 
             CreateMap<StationBikeView, StationBikeViewDto>();
             CreateMap<StationBikeViewDto, StationBikeView>();
+
+
+
+            CreateMap<CustomerOrdersView, CustomerOrdersViewDto>();
+            CreateMap<CustomerOrdersViewDto, CustomerOrdersView>();
         }
     }
 }

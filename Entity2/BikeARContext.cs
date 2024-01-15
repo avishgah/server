@@ -21,6 +21,8 @@ public partial class BikeARContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<CustomerOrdersView> CustomerOrdersViews { get; set; }
+
     public virtual DbSet<HistoryView> HistoryViews { get; set; }
 
     public virtual DbSet<Opinion> Opinions { get; set; }
@@ -113,6 +115,42 @@ public partial class BikeARContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("pic");
             entity.Property(e => e.ReadTerms).HasColumnName("readTerms");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Toun)
+                .HasMaxLength(50)
+                .HasColumnName("toun");
+            entity.Property(e => e.Tz)
+                .HasMaxLength(9)
+                .HasColumnName("tz");
+        });
+
+        modelBuilder.Entity<CustomerOrdersView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("CustomerOrdersView");
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(50)
+                .HasColumnName("address");
+            entity.Property(e => e.DateBirth)
+                .HasColumnType("date")
+                .HasColumnName("dateBirth");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Mail)
+                .HasMaxLength(50)
+                .HasColumnName("mail");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.NumOrders).HasColumnName("numOrders");
+            entity.Property(e => e.Phon)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("phon");
+            entity.Property(e => e.Pic)
+                .IsUnicode(false)
+                .HasColumnName("pic");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Toun)
                 .HasMaxLength(50)
@@ -292,7 +330,6 @@ public partial class BikeARContext : DbContext
 
             entity.Property(e => e.Cun).HasColumnName("cun");
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IdStation).HasColumnName("idStation");
             entity.Property(e => e.Lat).HasColumnName("lat");
             entity.Property(e => e.Lng).HasColumnName("lng");
             entity.Property(e => e.Location)
@@ -301,6 +338,7 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.NumOrders).HasColumnName("numOrders");
             entity.Property(e => e.Status).HasColumnName("status");
         });
 

@@ -1,17 +1,15 @@
 ﻿using Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using AutoMapper;
 using Dal;
 using Entity2;
-using GemBox.Spreadsheet;
-using MailKit.Net.Smtp;
 using MimeKit;
+using System.Reflection;
+using System.Net.Mail;
+using System.Net.Mime;
+using Org.BouncyCastle.Utilities;
 
-
+//using Newtonsoft.Json;
 
 namespace Bll
 {
@@ -19,12 +17,25 @@ namespace Bll
     {
         IUserDal UserDal;
 
+        IOrderDal OrderDal;
+
+
+        IOrderBikeDal OrderBikeDal;
+
         IMapper mapper;
 
-        public UserBll(IUserDal b, IMapper m)
+
+
+        List<Order> lst = new List<Order>();
+        List<OrderBike> lst3 = new List<OrderBike>();
+
+
+        public UserBll(IUserDal b, IMapper m, IOrderDal orderDal, IOrderBikeDal orderBikeDal)
         {
             UserDal = b;
             mapper = m;
+            OrderDal = orderDal;
+            OrderBikeDal = orderBikeDal;
         }
         List<CustomerDto> CustomerList;
 
@@ -89,24 +100,99 @@ namespace Bll
         }
 
 
-        public void SendEmailOnly(string to, string name, string subject, string text)
+        public void SendEmailOnly(string to, string name, string station, string text)
         {
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("Pedal", "pedalsite@gmail.com"));
             email.To.Add(new MailboxAddress(name, to));
 
-            email.Subject = subject;
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            if (text == "קבלה")
             {
-                Text = $"שלום {name}," +
-              $"\n" + // Adding a new line for better readability
-              $"\tPEDAL אנו מודים לך שבחרת ברשת " +
-              $"\n" + // Adding a new line for better readability
-              $"\tבמקרה של תקלה או שגיאה פנו אל שירות הלקוחות *2670"
-        };
+
+                CustomerDto cust = mapper.Map<CustomerDto>(this.UserDal.GetUserByMail(to));
+
+                List<OrderDto> orders = mapper.Map<List<OrderDto>>(OrderDal.GetOrderList()).Where(x => x.IdCust == cust.Id && x.IsPay != true && x.DatePay != null).ToList();
+
+                List<OrderBikeDto> AllBikes = mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeList());
+                List<TimeSpan> calcTime = new List<TimeSpan>();
 
 
-            using (var s = new SmtpClient())
+
+
+                //List<Order> lst = new List<Order>();
+
+                string data1 = "";
+                int id = 1;
+                foreach (OrderDto b in orders)
+                {
+                    //  data1 += $"<tr>{b.Code}</tr>";
+                    AllBikes.Where(x => x.IdPay == b.Id).ToList().ForEach(order2 =>
+                    {
+                        //int time2 = o.DateStart.Value;
+                        DateTime datestart = order2.DateStart.Value;
+                        DateTime dateend = order2.DateEnd.Value;
+                        TimeSpan span = dateend.Subtract(datestart);
+
+                        data1 += $"<tr><td><p>{id++}</p></td><td><p>{order2.DateStart}</p></td><td><p>{order2.DateEnd}</p></td> <td><p>{span}</p></td><td><p>{(int)order2.Sum}</p></td></tr>";
+
+                    });
+                    b.IsPay = true;
+                    //OrderDal.UpdateOrder(mapper.Map<Order>(b), b.Id);
+
+                }
+
+
+
+                int amount = (int)orders.Sum(x => x.EndSum);
+
+
+
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string pat = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
+                string full = Path.Combine(pat, "html/htmlpage.html");
+                string htmlBody = "";
+                using (var reader = new StreamReader(full))
+                {
+                    htmlBody = reader.ReadToEnd();
+                }
+            ;
+                htmlBody = htmlBody.Replace("{body}", data1);
+                htmlBody = htmlBody.Replace("{amount}", amount.ToString());
+
+
+                email.Subject = "  קבלה עבור שימוש ב - PEDAL!";
+
+
+                string attachmentPath = Path.Combine(pat, "img/kiki.png");
+                byte[] dataread = File.ReadAllBytes(attachmentPath);
+
+                string imgData = Convert.ToBase64String(dataread);
+                htmlBody = htmlBody.Replace("{imgData}", imgData);
+
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = htmlBody;
+
+                email.Body = bodyBuilder.ToMessageBody();
+
+
+
+             
+            }
+            else
+            {
+
+
+                email.Subject = "סיכום הזמנה";
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = station.ToString()
+                };
+
+
+            }
+            using (var s = new MailKit.Net.Smtp.SmtpClient())
             {
                 s.CheckCertificateRevocation = false;
                 s.Connect("smtp.gmail.com", 587, false);
@@ -116,6 +202,8 @@ namespace Bll
             }
         }
 
-
     }
+
+
 }
+

@@ -45,7 +45,7 @@ namespace Dal
             stat.Name=b.Name;
             stat.Lat=b.Lat;
             stat.Lng = b.Lng;
-            stat.IdStation=b.IdStation;
+            stat.Id=b.Id;
             stat.Status=b.Status;
             stat.Location=b.Location;   
             stat.Cun=b.Cun;

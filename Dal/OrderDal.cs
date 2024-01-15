@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,21 @@ using System.Threading.Tasks;
 using Entity2;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Dal
 {
     public class OrderDal : IOrderDal
     {
         private readonly BikeARContext context;
 
+        List<Order> lst = new List<Order>();
+        List<OrderBike> lst3 = new List<OrderBike>();
+
         public OrderDal(BikeARContext con)
         {
             context = con;
+
+
         }
 
         public int AddOrder(Order b, int count)
@@ -97,7 +104,7 @@ namespace Dal
                  .Where(x => x.IdCust == id && x.IsPay != true &&
                  dateend.AddMinutes(-30) < x.DateOrder.Value
                  && x.OrderBikes.Any(y => y.DateStart == null))
-                 .Include(x=>x.OrderBikes).ToList();
+                 .Include(x => x.OrderBikes).ToList();
 
 
         }
@@ -109,9 +116,9 @@ namespace Dal
 
         public double UpdateEndSumOfOrder(string id)
         {
-            List<Order> lst = new List<Order>();
+            //List<Order> lst = new List<Order>();
             List<OrderBike> lst2 = new List<OrderBike>();
-            Order o;
+
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Tz == id);
             lst = this.context.Orders.Where(x => x.IdCust == cust.Id && x.IsPay != true).ToList();
 
@@ -120,8 +127,8 @@ namespace Dal
             foreach (Order b in lst)
             {
 
+                lst3.AddRange(this.context.OrderBikes.Where(x => x.IdPay == b.Id).ToList());
                 lst2 = this.context.OrderBikes.Where(x => x.IdPay == b.Id).ToList();
-
                 foreach (OrderBike c in lst2)
                 {
                     sum += (double)c.Sum;
@@ -130,7 +137,7 @@ namespace Dal
                 }
 
                 b.EndSum = sum;
-                b.IsPay = true;
+                // b.IsPay = true;
                 b.DatePay = DateTime.Now;
                 context.SaveChanges();
                 Endsum += sum;
@@ -141,16 +148,26 @@ namespace Dal
 
         }
 
+
         public void UpdateOrder(Order b, int id)
         {
-            Order or = this.context.Orders.FirstOrDefault(x => x.Id == id);
-            or.DatePay = b.DatePay;
-            or.DateOrder = b.DateOrder;
-            or.IdStation = b.IdStation;
-            or.Code = b.Code;
-            or.IsPay = b.IsPay;
-            or.IdCust = b.IdCust;
-            or.EndSum = b.EndSum;
+            if (b.Code == "true")
+            {
+                Order x = this.context.Orders.FirstOrDefault(x => x.Id == id);
+                x.IsPay = true;
+            }
+            else
+            {
+                Order or = this.context.Orders.FirstOrDefault(x => x.Id == id);
+                or.DatePay = b.DatePay;
+                or.DateOrder = b.DateOrder;
+                or.IdStation = b.IdStation;
+                or.Code = b.Code;
+                or.IsPay = b.IsPay;
+                or.IdCust = b.IdCust;
+                or.EndSum = b.EndSum;
+            }
+
             context.SaveChanges();
         }
     }

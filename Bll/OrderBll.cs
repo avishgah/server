@@ -8,6 +8,8 @@ using AutoMapper;
 using Dal;
 using Entity2;
 
+
+
 namespace Bll
 {
     public class OrderBll : IOrderBll
@@ -76,5 +78,8 @@ namespace Bll
         {
             OrderDal.UpdateOrder(mapper.Map<Order>(b), ID);
         }
+
+
+
     }
 }

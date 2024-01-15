@@ -16,4 +16,13 @@
     <ProjectReference Include="..\Dto\Dto.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="html\htmlpage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="img\kiki.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

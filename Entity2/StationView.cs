@@ -17,7 +17,7 @@ public partial class StationView
 
     public double? Lng { get; set; }
 
-    public int? IdStation { get; set; }
+    public int? NumOrders { get; set; }
 
     public int? Cun { get; set; }
 }

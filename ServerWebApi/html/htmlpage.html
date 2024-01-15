@@ -1,0 +1,103 @@
+﻿<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 364px;
+            margin: 0 auto;
+            direction: rtl;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: black;
+            font-size: 19px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        img {
+            width: 287px;
+            height: auto;
+        }
+
+        .table {
+            text-align: center;
+            color: black;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px dashed white
+        }
+
+            .table td {
+                margin-left: 20%;
+                width: 109px;
+            }
+
+        p {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <br />
+        <h1> 🚲 הפתקית שלך</h1>
+        <h1>{amount} ₪</h1>
+        <p>אנו מודים לך שבחרת להשתמש ברשת PEDAL!</p>
+        <!-- <h1>התאריך הנוכחי:</h1>-->
+
+        <table class="table">
+            <tr>
+                <th>
+                    <p>אופניים</p>
+                </th>
+
+                <th>
+                    <p>תאריך התחלה</p>
+                </th>
+                <th>
+                    <p>תאריך סיום</p>
+                </th>
+
+                <th>
+                    <p>סה"כ זמן</p>
+                </th>
+                <th>
+                    <p>סה"כ תשלום</p>
+                </th>
+
+            </tr>
+            {body}
+        </table>
+        <p style="text-align: right; margin-right: 231px; font-weight: bold">תשלום סופי: {amount}</p>
+        <p style="text-align: right; margin-right: 231px; font-weight: bold">תאריך: <time id="currentDate"> </time></p>
+        <img id ="nnnnnnn" src="data:image/png;base64,{imgData}" alt="Image"/>
+
+    </div>
+    <script>
+        // יצירת אובייקט Date והשגת התאריך הנוכחי
+        var currentDate = new Date();
+
+        // קבלת יום השבוע כטקסט
+        var daysOfWeek = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+        var dayOfWeekText = daysOfWeek[currentDate.getDay()];
+
+        // פורמט והצגת התאריך
+        var formattedDate = dayOfWeekText + ', ' + currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+        document.getElementById("currentDate").innerText = formattedDate;
+        document.getElementById("currentDate").dateTime = currentDate.toISOString();
+    </script>
+</body>
+
+
+</html>

@@ -18,6 +18,6 @@ public partial class StationViewDto
     public double? Lng { get; set; }
 
     public int? IdStation { get; set; }
-
+    public int? NumOrders { get; set; }
     public int? Cun { get; set; }
 }
