@@ -101,7 +101,7 @@ namespace Dal
         {
             DateTime dateend = DateTime.Now;
             return this.context.Orders
-                 .Where(x => x.IdCust == id && x.IsPay != true &&
+                 .Where(x => x.IdCust == id && x.IsPay != true && x.IdStation == stationID &&
                  dateend.AddMinutes(-30) < x.DateOrder.Value
                  && x.OrderBikes.Any(y => y.DateStart == null))
                  .Include(x => x.OrderBikes).ToList();

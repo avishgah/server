@@ -132,12 +132,13 @@ namespace Bll
                         DateTime datestart = order2.DateStart.Value;
                         DateTime dateend = order2.DateEnd.Value;
                         TimeSpan span = dateend.Subtract(datestart);
+                        string formattedTime = $"{(int)span.TotalHours:D2}:{span.Minutes:D2}:{span.Seconds:D2}";
 
-                        data1 += $"<tr><td><p>{id++}</p></td><td><p>{order2.DateStart}</p></td><td><p>{order2.DateEnd}</p></td> <td><p>{span}</p></td><td><p>{(int)order2.Sum}</p></td></tr>";
+                        data1 += $"<tr><td><p>{id++}</p></td><td><p>{order2.DateStart}</p></td><td><p>{order2.DateEnd}</p></td> <td><p>{formattedTime}</p></td><td><p>{(int)order2.Sum}</p></td></tr>";
 
                     });
                     b.IsPay = true;
-                    //OrderDal.UpdateOrder(mapper.Map<Order>(b), b.Id);
+                    OrderDal.UpdateOrder(mapper.Map<Order>(b), b.Id);
 
                 }
 
@@ -182,8 +183,6 @@ namespace Bll
             }
             else
             {
-
-
                 email.Subject = "סיכום הזמנה";
                 email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
                 {
