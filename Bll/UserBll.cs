@@ -116,7 +116,11 @@ namespace Bll
                 List<OrderBikeDto> AllBikes = mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeList());
                 List<TimeSpan> calcTime = new List<TimeSpan>();
 
+                DateTime currentDate = DateTime.Now;
 
+                // הצגת התאריך בפורמט המבוקש
+                string formattedDate = currentDate.ToString("dddd, dd.MM.yyyy");
+                Console.WriteLine(formattedDate);
 
 
                 //List<Order> lst = new List<Order>();
@@ -160,6 +164,7 @@ namespace Bll
             ;
                 htmlBody = htmlBody.Replace("{body}", data1);
                 htmlBody = htmlBody.Replace("{amount}", amount.ToString());
+                htmlBody = htmlBody.Replace("{date}", formattedDate);
 
 
                 email.Subject = "  קבלה עבור שימוש ב - PEDAL!";
