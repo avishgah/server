@@ -74,14 +74,17 @@ namespace Dal
 
             foreach (OrderBike o in lstOrders)
             {
-                TimeSpan date = CalcTime(o.Id);
-                lst.Add(date);
+                DateTime datestart = o.DateStart.Value;
+                DateTime dateend = o.DateEnd.Value;
+                TimeSpan span = dateend.Subtract(datestart);
+                //string formattedTime = $"{(int)span.TotalHours:D2}:{span.Minutes:D2}:{span.Seconds:D2}";
+                lst.Add(span);
             }
             return lst;
         }
         public TimeSpan CalcTime(int id)
         {
-            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status == true);
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status != true);
             if (o != null)
             {
                 o.DateEnd = DateTime.Now;

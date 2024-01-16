@@ -21,9 +21,12 @@ namespace Bll
             BikeDal = b;
             mapper = m;
         }
-        public void AddBike(BikeDto b)
+        public void AddBike(BikeDto b,int count)
         {
-            this.BikeDal.AddBike(mapper.Map<Bike>(b));
+            for(int i = 0; i < count; i++)
+            {
+                this.BikeDal.AddBike(mapper.Map<Bike>(b));
+            }
         }
 
         public void DeleteBike(int id)

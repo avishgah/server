@@ -88,15 +88,15 @@ namespace Dal
                     cust.Name = b.Name;
                     cust.Status = b.Status;
                     cust.IsManager = b.IsManager;
+                    cust.Password= b.Password ?? cust.Password;
                     // cust.Orders = b.Orders;
                     cust.Address = b.Address;
-                    cust.DateBirth = b.DateBirth;
                     cust.Mail = b.Mail;
                     //cust.Opinion = b.Opinion;
                     cust.Toun = b.Toun;
-                    cust.Pic = b.Pic;
+                    cust.Pic = b.Pic ?? cust.Pic;
                     cust.Phon = b.Phon;
-                    cust.ReadTerms = b.ReadTerms;
+                    cust.ReadTerms = true;
 
                     context.SaveChanges();
                 }

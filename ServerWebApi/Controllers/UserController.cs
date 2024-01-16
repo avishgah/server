@@ -157,14 +157,31 @@ namespace ServerWebApi.Controllers
                 // המרת ה-object לסוג UserData
                 var userData = JsonConvert.DeserializeObject<Customer>(b.ToString());
 
-
+                DateTime date = (DateTime)userData.DateBirth;
+                bool status = (bool)userData.Status;
                 string pic = userData.Pic;
                 string name = userData.Name;
+                string tz= userData.Tz;
+                string toun= userData.Toun;
+                string phon = userData.Phon;    
+                string address= userData.Address;
+                string password = userData.Password;
+                string mail= userData.Mail;
+                bool isManager = userData.IsManager;    
+
 
                 CustomerDto dto = new CustomerDto()
                 {
                     Pic = pic,
                     Name = name,
+                    Address = address,
+                    Password = password,
+                    Toun = toun,
+                    Phon=phon,
+                    Tz=tz,
+                    Mail=mail,
+                    IsManager=isManager,
+                    Status=status,
                 };
 
 
