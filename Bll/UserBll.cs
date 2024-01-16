@@ -102,16 +102,16 @@ namespace Bll
 
         public void SendEmailOnly(string to, string name, string station, string text)
         {
+            CustomerDto cust = mapper.Map<CustomerDto>(this.UserDal.GetUserByMail(to));
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("Pedal", "pedalsite@gmail.com"));
             email.To.Add(new MailboxAddress(name, to));
 
-            if (text == "קבלה")
+            if (text == "קבלה" )
             {
 
-                CustomerDto cust = mapper.Map<CustomerDto>(this.UserDal.GetUserByMail(to));
 
-                List<OrderDto> orders = mapper.Map<List<OrderDto>>(OrderDal.GetOrderList()).Where(x => x.IdCust == cust.Id && x.IsPay != true && x.DatePay != null).ToList();
+                List<OrderDto> orders = mapper.Map<List<OrderDto>>(OrderDal.GetOrderList()).Where(x => x.IdCust == cust?.Id && x.IsPay != true && x.DatePay != null).ToList();
 
                 List<OrderBikeDto> AllBikes = mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeList());
                 List<TimeSpan> calcTime = new List<TimeSpan>();
@@ -184,7 +184,7 @@ namespace Bll
 
 
 
-             
+
             }
             else
             {
