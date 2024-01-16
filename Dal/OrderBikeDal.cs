@@ -84,15 +84,13 @@ namespace Dal
         }
         public TimeSpan CalcTime(int id)
         {
-            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status != true);
+            OrderBike o = this.context.OrderBikes.FirstOrDefault(x => x.Id == id && x.Status == true);
             if (o != null)
             {
                 o.DateEnd = DateTime.Now;
                 //int time2 = o.DateStart.Value;
                 DateTime datestart = o.DateStart.Value;
-                Console.WriteLine(datestart);
                 DateTime dateend = DateTime.Now;
-                Console.WriteLine(dateend);
                 TimeSpan span = dateend.Subtract(datestart);
 
                 Console.WriteLine(span);
