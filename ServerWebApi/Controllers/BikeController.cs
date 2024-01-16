@@ -20,7 +20,7 @@ namespace ServerWebApi.Controllers
         [HttpGet]
         public List<BikeDto> Get()
         {
-          return bikeBll.GetBikeList();
+            return bikeBll.GetBikeList();
         }
 
         // GET api/<BikeController1>/5
@@ -31,13 +31,11 @@ namespace ServerWebApi.Controllers
         }
         //post-הוספה
         // POST api/<BikeController1>
-        [HttpPost]
-        public void Post([FromBody] BikeDto b)
+        [HttpPost("{count}")]
+        public void Post([FromBody] BikeDto b,int count)
         {
-            b.DateStart = DateTime.Now;
-            b.Battery = 100;
-            b.Code = "bike" + b.Code;
-            bikeBll.AddBike(b);
+          
+            bikeBll.AddBike(b,count);
         }
         //put-עדכון
         // PUT api/<BikeController1>/5

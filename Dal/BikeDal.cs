@@ -17,7 +17,8 @@ namespace Dal
         }
         public void AddBike(Bike b)
         {
-           
+            b.DateStart = DateTime.Now;
+            b.Battery = 100;
             context.Bikes.Add(b);
             context.SaveChanges();
         }

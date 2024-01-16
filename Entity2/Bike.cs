@@ -7,9 +7,9 @@ public partial class Bike
 {
     public int Id { get; set; }
 
-    public string? Code { get; set; }
+    public int Code { get; set; }
 
-    public int? Battery { get; set; }
+    public int Battery { get; set; }
 
     public int? IdStation { get; set; }
 

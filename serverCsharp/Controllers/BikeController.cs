@@ -31,13 +31,10 @@ namespace serverCsharp.Controllers
         }
         //post-הוספה
         // POST api/<BikeController1>
-        [HttpPost]
-        public void Post([FromBody] BikeDto b)
+        [HttpPost("{count}")]
+        public void Post([FromBody] BikeDto b,int count)
         {
-            b.DateStart = DateTime.Now;
-            b.Battery = 100;
-            b.Code = "bike" + b.Id;
-            bikeBll.AddBike(b);
+            bikeBll.AddBike(b,count);
         }
         //put-עדכון
         // PUT api/<BikeController1>/5

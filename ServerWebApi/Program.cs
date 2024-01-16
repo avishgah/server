@@ -1,6 +1,7 @@
 using AutoMapper;
 using Bll;
 using Dal;
+using Dto;
 using Entity2;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +31,21 @@ builder.Services.AddScoped<IOrderDal, OrderDal>();
 builder.Services.AddScoped<IOrderBikeBll, OrderBikeBll>();
 builder.Services.AddScoped<IOrderBikeDal, OrderBikeDal>();
 
+builder.Services.AddScoped<IStationViewBll, StationViewBll>();
+builder.Services.AddScoped<IStationViewDal, StationViewDal>();
+
+
+builder.Services.AddScoped<IContactBll, ContactBll>();
+builder.Services.AddScoped<IContectDal, ContactDal>();
+
+builder.Services.AddScoped<IStationBikeView, StationBikeViewBll>();
+builder.Services.AddScoped<IStationBikeViewDal, StationBikeViewDal>();
+
+builder.Services.AddScoped<ICustomerOrdersBll, CustomerOrdersBll>();
+builder.Services.AddScoped<ICustomerOrdersViewDal, CustomerOrdersViewDal>();
+
 builder.Services.AddDbContext<BikeARContext>();
+
 var config = new MapperConfiguration(m =>
   m.AddProfile(new MapProfile()));
 IMapper map = config.CreateMapper();

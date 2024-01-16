@@ -25,10 +25,47 @@ namespace ServerWebApi.Controllers
         }
 
         // GET api/<BikeController1>/5
-        [HttpGet("{id}")]
+        [HttpGet("/api/orderBike/GetOrderById/{id}")]
         public OrderBikeDto Get(int id)
         {
             return OrderBike.GetOrderBike(id);
+        }
+        // GET api/<BikeController1>/5
+        [HttpGet("/api/orderBike/HistoryDrive/{id}")]
+        public List<OrderBikeDto> Get(string id)
+        {
+            return OrderBike.HistoryDrive(id);
+        }
+
+        [HttpGet("/api/orderBike/GetOrderBikeListByIdList/{id}")]
+        public List<OrderBikeDto> GetOrderBikeListByIdList(int id)
+        {
+            return OrderBike.GetOrderBikeListByIdList(id);
+        }
+
+
+        [HttpGet("/api/orderBike/GetListDateOfUse/{id}")]
+        public List<TimeSpan> GetListDateOfUse(string id)
+        {
+            return OrderBike.GetListDateOfUse(id);
+        }
+
+        [HttpGet("/api/orderBike/ReturnListBikeByIdOrder/{id}")]
+        public List<OrderBikeDto> ReturnListBikeByIdOrder(int id)
+        {
+            return OrderBike.ReturnListBikeByIdOrder(id);
+        }
+
+
+        [HttpGet("/api/orderBike/calcTime/{id}")]
+        public TimeSpan CalcTime(int id)
+        {
+            return OrderBike.CalcTime(id);
+        }
+        [HttpGet("/api/orderBike/calcSum/{id}")]
+        public double CalcSum(int id)
+        {
+            return OrderBike.CalcSum(id);
         }
         //post-הוספה
         // POST api/<BikeController1>
@@ -39,10 +76,11 @@ namespace ServerWebApi.Controllers
         }
         //put-עדכון
         // PUT api/<BikeController1>/5
+
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] OrderBikeDto b)
+        public OrderBikeDto Put(int id, [FromBody] OrderBikeDto b)
         {
-            OrderBike.UpdateOrderBike(b, id);
+           return OrderBike.UpdateOrderBike(b, id);
         }
         //delete-מחיקה
         // DELETE api/<BikeController1>/5

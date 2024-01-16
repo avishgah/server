@@ -26,4 +26,8 @@ public partial class Opinion
     public int? IdBike { get; set; }
 
     public virtual Bike? IdBikeNavigation { get; set; }
+
+    public virtual Customer? IdCustNavigation { get; set; }
+
+    public virtual Station? IdStationNavigation { get; set; }
 }

@@ -10,7 +10,7 @@ namespace Bll
 {
     public interface IBikeBll
     {
-        void AddBike(BikeDto b);
+        void AddBike(BikeDto b, int count   );
 
         List<BikeDto> GetBikeList();
   

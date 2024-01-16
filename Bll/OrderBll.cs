@@ -8,6 +8,8 @@ using AutoMapper;
 using Dal;
 using Entity2;
 
+
+
 namespace Bll
 {
     public class OrderBll : IOrderBll
@@ -30,15 +32,29 @@ namespace Bll
             Order order = mapper.Map<Order>(b);
             //order.DateOrder = DateTime.Now;
             //func hoh many can take
-           
-           return this.OrderDal.AddOrder(order ,b.count);
+
+            return this.OrderDal.AddOrder(order, b.count);
+        }
+
+        public bool IsExist(int b, int count)
+        {
+            //int id = b.Id;
+            //b.Id = 0;
+            //Station order = mapper.Map<Station>(b);
+            //order.DateOrder = DateTime.Now;
+            //func hoh many can take
+
+            return this.OrderDal.IsExist(b, count);
         }
 
         public void DeleteOrder(int id)
         {
             this.OrderDal.DeleteOrder(id);
         }
-
+        public double UpdateEndSumOfOrder(string id)
+        {
+            return this.OrderDal.UpdateEndSumOfOrder(id);
+        }
         public OrderDto GetOrder(int id)
         {
             return mapper.Map<OrderDto>(this.OrderDal.GetOrder(id));
@@ -49,14 +65,21 @@ namespace Bll
             return mapper.Map<List<OrderDto>>(OrderDal.GetOrderList());
         }
 
-        public List<OrderDto> GetOrderByIdCust(int id)
+        public List<OrderDto> GetOrderByIdCust(string id)
         {
             return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCust(id));
+        }
+        public List<OrderDto> GetOrderByIdCustNotDone(int id, int stationId)
+        {
+            return mapper.Map<List<OrderDto>>(OrderDal.GetOrderByIdCustNotDone(id, stationId));
         }
 
         public void UpdateOrder(OrderDto b, int ID)
         {
             OrderDal.UpdateOrder(mapper.Map<Order>(b), ID);
         }
+
+
+
     }
 }

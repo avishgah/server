@@ -21,6 +21,8 @@ public partial class Order
 
     public DateTime? DateOrder { get; set; }
 
+    public virtual Customer? IdCustNavigation { get; set; }
+
     public virtual Station? IdStationNavigation { get; set; }
 
     public virtual ICollection<OrderBike> OrderBikes { get; set; } = new List<OrderBike>();

@@ -16,10 +16,11 @@ namespace Dal
             context = con;
         }
 
-        public void AddUser(Customer b)
+        public Customer AddUser(Customer b)
         {
-            context.Customers.Add(b);
+            var addedCustomer = context.Customers.Add(b);
             context.SaveChanges();
+            return addedCustomer.Entity;
         }
 
         public void DeleteUser(int id)
@@ -34,38 +35,73 @@ namespace Dal
         {
             return this.context.Customers.FirstOrDefault(x => x.Id == id);
         }
-       
+        public Customer GetUserByTz(string id)
+        {
+            return this.context.Customers.FirstOrDefault(x => x.Tz == id);
+        }
+
+
+
+
+        public Customer GetUserByMail(string mail)
+        {
+            return this.context.Customers.FirstOrDefault(x => x.Mail == mail);
+        }
+
         public Customer GetUserAndPassword(string id, string pas)
         {
-            return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password==pas);
+            return this.context.Customers.FirstOrDefault(x => x.Tz == id && x.Password == pas);
+        }
+
+        public Customer GetMailAndPassword(string pass, string mail)
+        {
+            return this.context.Customers.FirstOrDefault(x => x.Password == pass && x.Mail == mail);
         }
 
         public List<Customer> GetUserList()
         {
             return context.Customers.ToList();
         }
-
+        public void ChangePassword(Customer user)
+        {
+            Customer cust = GetUserByMail(user.Mail);
+            if (cust != null)
+            {
+                cust.Password = user.Password;
+                context.SaveChanges();
+            }
+        }
         public void UpdateUser(Customer b, int id)
         {
             Customer cust = this.context.Customers.FirstOrDefault(x => x.Id == id);
-            if (cust != null)
-            {
-                cust.Tz = b.Tz;
-                cust.Name = b.Name;
-                cust.Status = b.Status;
-                cust.IsManager = b.IsManager;
-               // cust.Orders = b.Orders;
-                cust.Address = b.Address;
-                cust.DateBirth = b.DateBirth;
-                cust.Mail = b.Mail;
-                //cust.Opinion = b.Opinion;
-                cust.Toun = b.Toun;
-                cust.Pic = b.Pic;
-                cust.Phon = b.Phon;
-                cust.ReadTerms = b.ReadTerms;
 
+            if (b.Name == "change pic")
+            {
+                cust.Pic = b.Pic;
                 context.SaveChanges();
             }
+            else
+            {
+                if (cust != null)
+                {
+                    cust.Tz = b.Tz;
+                    cust.Name = b.Name;
+                    cust.Status = b.Status;
+                    cust.IsManager = b.IsManager;
+                    cust.Password= b.Password ?? cust.Password;
+                    // cust.Orders = b.Orders;
+                    cust.Address = b.Address;
+                    cust.Mail = b.Mail;
+                    //cust.Opinion = b.Opinion;
+                    cust.Toun = b.Toun;
+                    cust.Pic = b.Pic ?? cust.Pic;
+                    cust.Phon = b.Phon;
+                    cust.ReadTerms = true;
+
+                    context.SaveChanges();
+                }
+            }
+
         }
     }
 }
