@@ -18,4 +18,6 @@ public partial class Contact
     public string? Cuption { get; set; }
 
     public bool? Status { get; set; }
+
+    public DateTime? Date { get; set; }
 }

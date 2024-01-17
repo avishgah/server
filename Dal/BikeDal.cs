@@ -17,6 +17,9 @@ namespace Dal
         }
         public void AddBike(Bike b)
         {
+            List<Bike> lst = GetBikeList();
+            int lastBikeId = lst.Count > 0 ? lst[lst.Count - 1].Id : -1;
+            b.Id = lastBikeId+1;  
             b.DateStart = DateTime.Now;
             b.Battery = 100;
             context.Bikes.Add(b);

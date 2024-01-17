@@ -25,13 +25,12 @@
             line-height: 1.6;
         }
 
-    /*    img {
-        
-            width: 57px;
+        img {
+            width: 14%;
             height: auto;
             margin-right: 3%;
-            margin-top: -26%;
-        }*/
+            margin-top: -25%;
+        }
 
         .table {
             text-align: center;
@@ -85,24 +84,13 @@
         </table>
         <p style="text-align: right; margin-right: 231px; font-weight: bold">תשלום סופי: {amount} ₪</p>
         <p style="text-align: right; margin-right: 231px; font-weight: bold">תאריך: {date}</p>
+        <!--<img src="kiki.png" />-->
         <!--<img id="nnnnnnn" src="data:image/png;base64,{imgData}" alt="Image" />-->
-        <p style="color: red;">🚲</p>
+        🚲
 
 
     </div>
-    <script>
-        // יצירת אובייקט Date והשגת התאריך הנוכחי
-        var currentDate = new Date();
 
-        // קבלת יום השבוע כטקסט
-        var daysOfWeek = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
-        var dayOfWeekText = daysOfWeek[currentDate.getDay()];
-
-        // פורמט והצגת התאריך
-        var formattedDate = dayOfWeekText + ', ' + currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
-        document.getElementById("currentDate").innerText = formattedDate;
-        document.getElementById("currentDate").dateTime = currentDate.toISOString();
-    </script>
 </body>
 
 

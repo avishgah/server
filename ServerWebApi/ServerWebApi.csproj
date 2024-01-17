@@ -20,6 +20,9 @@
     <None Update="html\htmlpage.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="html\kiki.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="img\kiki.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

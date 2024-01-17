@@ -111,7 +111,7 @@ namespace Bll
             {
 
 
-                List<OrderDto> orders = mapper.Map<List<OrderDto>>(OrderDal.GetOrderList()).Where(x => x.IdCust == cust?.Id && x.IsPay != true && x.DatePay != null).ToList();
+                List<OrderDto> orders = mapper.Map<List<OrderDto>>(OrderDal.GetOrderList()).Where(x => x.IdCust == cust?.Id && x.IsPay != true && x.DatePay != null && x.EndSum!=0).ToList();
 
                 List<OrderBikeDto> AllBikes = mapper.Map<List<OrderBikeDto>>(OrderBikeDal.GetOrderBikeList());
                 List<TimeSpan> calcTime = new List<TimeSpan>();

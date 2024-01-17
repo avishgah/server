@@ -71,6 +71,9 @@ public partial class BikeARContext : DbContext
             entity.Property(e => e.Cuption)
                 .HasMaxLength(100)
                 .HasColumnName("cuption");
+            entity.Property(e => e.Date)
+                .HasColumnType("datetime")
+                .HasColumnName("date");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");

@@ -18,4 +18,5 @@ public partial class ContactDto
     public string? Cuption { get; set; }
 
     public bool? Status { get; set; }
+    public DateTime? Date { get; set; }
 }
