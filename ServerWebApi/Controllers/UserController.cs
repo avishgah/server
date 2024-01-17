@@ -73,7 +73,7 @@ namespace ServerWebApi.Controllers
         public void SendEmailOnly(string to, string name, string subject, string text)
         {
 
-             UserBll.SendEmailOnly( to,  name,  subject,  text);
+            UserBll.SendEmailOnly(to, name, subject, text);
         }
 
 
@@ -99,7 +99,7 @@ namespace ServerWebApi.Controllers
                 //string pic = ((string)userData.Pic);
                 // string pic = " ";
 
-                bool isManager = false;
+                bool isManager = userData.IsManager;
                 bool status = true;
                 bool readTerms = true;
 
@@ -151,23 +151,43 @@ namespace ServerWebApi.Controllers
         [HttpPut("UpdateUser/{id}")]
         public void UpdateUser(int id, [FromBody] object b)
         {
+            var userData = JsonConvert.DeserializeObject<Customer>(b.ToString());
 
             try
             {
                 // המרת ה-object לסוג UserData
-                var userData = JsonConvert.DeserializeObject<Customer>(b.ToString());
+                DateTime dateBirth =DateTime.Now;
+                bool status=false ;
+                string pic="";
+                string name = "";
+                string tz="";
+                string toun="";
+                string phon= "";
+                string address="";
+                string password = "";
+                string mail="";
+                bool isManager=false;
 
-                DateTime date = (DateTime)userData.DateBirth;
-                bool status = (bool)userData.Status;
-                string pic = userData.Pic;
-                string name = userData.Name;
-                string tz= userData.Tz;
-                string toun= userData.Toun;
-                string phon = userData.Phon;    
-                string address= userData.Address;
-                string password = userData.Password;
-                string mail= userData.Mail;
-                bool isManager = userData.IsManager;    
+                if (userData.Name == "change pic")
+                {
+                     pic = userData?.Pic;
+                     name = userData?.Name;
+                }
+                else
+                {
+                     dateBirth = userData.DateBirth != null ? (DateTime)userData.DateBirth : DateTime.Now;
+                     status = (bool)userData?.Status;
+                     pic = userData?.Pic;
+                     name = userData?.Name;
+                     tz = userData?.Tz;
+                     toun = userData?.Toun;
+                     phon = userData?.Phon;
+                     address = userData?.Address;
+                     password = userData?.Password;
+                     mail = userData?.Mail;
+                     isManager = (bool)userData?.IsManager;
+                }
+
 
 
                 CustomerDto dto = new CustomerDto()
@@ -177,11 +197,11 @@ namespace ServerWebApi.Controllers
                     Address = address,
                     Password = password,
                     Toun = toun,
-                    Phon=phon,
-                    Tz=tz,
-                    Mail=mail,
-                    IsManager=isManager,
-                    Status=status,
+                    Phon = phon,
+                    Tz = tz,
+                    Mail = mail,
+                    IsManager = isManager,
+                    Status = status,
                 };
 
 

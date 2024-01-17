@@ -17,7 +17,7 @@ namespace Dal
         }
         public void AddContact(Contact b)
         {
-
+            b.Date = DateTime.Now;
             context.Contacts.Add(b);
             context.SaveChanges();
         }
